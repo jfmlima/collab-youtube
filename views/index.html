@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html  lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script><!-- load angular -->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.js"></script>
+
+<script src="/javascripts/core.js"></script>
+<script src="/javascripts/controllers.js"></script>
+<script src="/javascripts/services.js"></script>
+
+<body ng-app="collabYoutube" ng-controller="mainController">
+
+<ng-view></ng-view>
+
+<script>
+    var socket = io("http://localhost:3000");
+    socket.on("connect", function(){
+        console.log("connnected")
+    });
+</script>
+
+
+</body>
+</html>
+
