@@ -1,5 +1,5 @@
 // public/core.js
-angular.module('collabYoutube', ['collabYoutube.controllers', 'collabYoutube.services', 'ngRoute', 'btford.socket-io'])
+angular.module('collabYoutube', ['collabYoutube.controllers', 'collabYoutube.services', 'ui.bootstrap', 'ngRoute', 'btford.socket-io'])
 
     .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
         $routeProvider.
