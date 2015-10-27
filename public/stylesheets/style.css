@@ -6,3 +6,19 @@ body {
 a {
   color: #00B7FF;
 }
+
+#intro h1 {
+  text-align: center;
+}
+
+.row-centered {
+  text-align:center;
+}
+.col-centered {
+  margin-left:35%;
+  display:inline-block;
+  float:none;
+  /* reset the text-align */
+  /* inline-block space fix */
+  margin-right:35%;
+}

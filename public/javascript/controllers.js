@@ -4,14 +4,18 @@
 
 angular.module('collabYoutube.controllers', [])
 
-    .controller('mainController', function($scope, $http, $socket) {
+    .controller('mainController', function($scope, $window, $http, $socket) {
         $scope.formData = {};
 
         $socket.on("connect", function(){
             console.log("connnected")
         });
 
-        console.log("AQUI");
+        $scope.facebookLogin = function()
+        {
+            console.log("data");
+            $window.location = $window.location.protocol + "//" + $window.location.host + $window.location.pathname + "auth/facebook";
+        }
         $scope.posts = [
                 {
                     "title": "Lorem ipsum",

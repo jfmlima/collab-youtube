@@ -4,14 +4,29 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+
+var mongoose = require('mongoose');
 
 var http = require('http');
 var debug = require('debug')('collabYoutube:server');
 
-var routes = require('./routes/');
+var passport = require('passport');
+var flash    = require('connect-flash');
+var cors = require('cors');
+//var routes = require('./routes/');
 //var users = require('/routes/users');
 
+var configDB = require('./config/database.js');
+
+// configuration ===============================================================
+mongoose.connect(configDB.url); // connect to our database
+
+
+
+
 var app = express();
+
 
 /**
  * Create HTTP server.
@@ -24,6 +39,7 @@ var io = require('socket.io')(server);
 var port = normalizePort(process.env.PORT || '3000');
 
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -31,19 +47,34 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
+app.use(cors());
+
+
+
 app.use(logger('dev'));
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+require('./routes/routes.js')(app, passport);
+app.use(session({ secret: 'thatrealprotectedsecret', saveUninitialized: true,
+  resave: true })); // session
+
+require('./config/passport')(passport);
+
+
+
 
 // serve index and view partials
-app.get('/', routes.index);
-app.get('/partials/:name', routes.partials);
 
-// redirect all others to the index (HTML5 history)
-app.get('*', routes.index);
+//app.get('/partials/:name', routes.partials);
+/*app.get('/login', routes.login());
+app.get('/signup', routes.signup());*/
+
 
 //app.use('/users', users);
 
