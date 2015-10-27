@@ -47,8 +47,8 @@ function ensureAuthentication(req, res, next) {
 
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated()) {
-        res.sendStatus(200);
-        return next();
+        res.send(req.user);
+        //return next();
     }
     else
         res.sendStatus(401);

@@ -42,12 +42,18 @@ angular.module('collabYoutube', ['collabYoutube.controllers', 'collabYoutube.ser
     }])
 
 
-var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){
+var checkLoggedin = function($q, $timeout, $http, $location, $rootScope, $session){
 // Initialize a new promise
     var deferred = $q.defer(); // Make an AJAX call to check if the user is logged in
     $http.get('/auth/isAuthenticated').success(function(user){
+
         // Authenticated
-        if (user !== '0') deferred.resolve(); // Not Authenticated
+        if (user !== '0'){
+            deferred.resolve();
+            $session.setUser(user);
+            console.log($session.getUser());
+        }
+        // Not Authenticated
         else { $rootScope.message = 'You need to log in.';
             deferred.reject();
             $location.url('/login');

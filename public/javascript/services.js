@@ -8,15 +8,26 @@ angular.module('collabYoutube.services', [])
         return socketFactory();
     })
 
-    .service('sessionService', function($socket){
-        var userIsAuthenticated = false;
+    .service('$session', function(){
+        var user_;
 
+        this.setUser = function(user){
+            user_ = user;
+        }
 
-        this.getUserAuthenticated = function(){
-            $socket.emit('authenticationRequest', function (data) {
-                console.log(data);
-            })
-            return userIsAuthenticated;
-        };
-        
+        this.getUser = function(){
+            if(user_ != null){
+                return user_;
+            }
+            else
+            return null;
+        }
+    })
+
+    .service('collab', function($socket){
+
+        this.join = function(){
+
+        }
+
     })
