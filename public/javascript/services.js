@@ -24,9 +24,13 @@ angular.module('collabYoutube.services', [])
         }
     })
 
-    .service('collab', function($socket){
+    .service('$collab', function($socket, $session){
 
         this.join = function(){
+            var user = $session.getUser();
+            var name = user.facebook.name;
+
+            $socket.emit('join', name);
 
         }
 

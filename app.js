@@ -123,8 +123,8 @@ var counter = 0;
 
 io.sockets.on('connection', function(socket){
   console.log("connected");
-  socket.on('authenticationRequest', function (name, fn) {
-    socket.emit('are you connected');
+  socket.on('join', function (name, fn) {
+   console.log(name);
   });
   counter++;
 

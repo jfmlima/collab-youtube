@@ -6,9 +6,9 @@ div#intro
                 button(class="btn btn-primary") Create New Room
         div(class="row row-centered")
             div(class ="col-xs-6 col-sm-3 col-centered")
-                button(class="btn btn-primary") Join Room
+                button(class="btn btn-primary" ng-click="joinRoom()") Join Room
         div(class="row row-centered")
             div(class ="col-xs-6 col-sm-3 col-centered")
-                a(class="btn btn-primary", href="/auth/logout" target="_self") Logout
+                a(class="btn btn-primary", ng-click="logout()" ng-href="/auth/logout" target="_self" ) Logout
 
 

@@ -4,17 +4,20 @@
 
 angular.module('collabYoutube.controllers', [])
 
-    .controller('mainController', function($scope, $window, $http, $socket) {
+    .controller('mainController', function($scope, $window, $http, $socket, $session, $collab) {
         $scope.formData = {};
 
         $socket.on("connect", function(){
             console.log("connnected")
         });
 
-        $scope.facebookLogin = function()
+        $scope.logout = function()
         {
-            console.log("data");
-            $window.location = $window.location.protocol + "//" + $window.location.host + $window.location.pathname + "auth/facebook";
+            $session.setUser(null);
+        }
+
+        $scope.joinRoom = function(){
+            $collab.join();
         }
 
 
