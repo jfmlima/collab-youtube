@@ -6,12 +6,13 @@ angular.module('collabYoutube', ['collabYoutube.controllers', 'collabYoutube.ser
             when('/', {
                 templateUrl: '/partials/index',
                 controller: 'mainController',
-                access: { requiredLogin: true }
+                resolve: {
+                    loggedIn: checkLoggedin
+                }
             }).
             when('/login', {
                 templateUrl: '/partials/login',
                 controller: 'loginController',
-                access: { requiredLogin: false }
             }).
             otherwise({
                 redirectTo: '/'
@@ -23,12 +24,37 @@ angular.module('collabYoutube', ['collabYoutube.controllers', 'collabYoutube.ser
         });
     }])
 
-    .run(function($rootScope, $location, sessionService) {
-        $rootScope.$on("$routeChangeStart", function (event, nextRoute, currentRoute) {
-            if (nextRoute.access.requiredLogin && !sessionService.getUserAuthenticated()) {
-                $location.path("/login");
-            }
+    .config(['$httpProvider', function($httpProvider){
+
+        $httpProvider.interceptors.push(function($q, $location) {
+            return {
+                response: function(response) {
+                    // do something on success
+                    return response;
+                },
+                responseError: function(response) {
+                    if (response.status === 401)
+                        $location.url('/login');
+                    return $q.reject(response);
+                }
+            };
         })
+    }])
+
+
+var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){
+// Initialize a new promise
+    var deferred = $q.defer(); // Make an AJAX call to check if the user is logged in
+    $http.get('/auth/isAuthenticated').success(function(user){
+        // Authenticated
+        if (user !== '0') deferred.resolve(); // Not Authenticated
+        else { $rootScope.message = 'You need to log in.';
+            deferred.reject();
+            $location.url('/login');
+        }
     });
+
+    return deferred.promise;
+};
 
 

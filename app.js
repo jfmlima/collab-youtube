@@ -14,7 +14,7 @@ var debug = require('debug')('collabYoutube:server');
 var passport = require('passport');
 var flash    = require('connect-flash');
 var cors = require('cors');
-//var routes = require('./routes/');
+var routes = require('./routes/');
 //var users = require('/routes/users');
 
 var configDB = require('./config/database.js');
@@ -49,7 +49,11 @@ app.set('view engine', 'jade');
 
 app.use(cors());
 
-
+app.use(session({
+  secret: 'thatrealprotectedsecret',
+  saveUninitialized: true,
+  resave: true
+})); // session
 
 app.use(logger('dev'));
 app.use(passport.initialize());
@@ -60,23 +64,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+if (app.get('env') === 'production') {
+  session.cookie.secure = true // serve secure cookies
+}
+//app.get('*', routes.index);
+
 require('./routes/routes.js')(app, passport);
-app.use(session({ secret: 'thatrealprotectedsecret', saveUninitialized: true,
-  resave: true })); // session
+
+
 
 require('./config/passport')(passport);
 
-
-
-
-// serve index and view partials
-
-//app.get('/partials/:name', routes.partials);
-/*app.get('/login', routes.login());
-app.get('/signup', routes.signup());*/
-
-
-//app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -125,7 +124,7 @@ var counter = 0;
 io.sockets.on('connection', function(socket){
   console.log("connected");
   socket.on('authenticationRequest', function (name, fn) {
-    fn('woot');
+    socket.emit('are you connected');
   });
   counter++;
 

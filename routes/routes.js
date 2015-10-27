@@ -10,24 +10,35 @@ module.exports = function(app, passport) {
         res.render('partials/' + name);
     });
 
+
+
+    app.get('/auth/isAuthenticated', ensureAuthentication);
+
     app.get('/profile', ensureAuthentication, function(req, res) {
 
     });
+
     // route for facebook authentication and login
-    app.get('/auth/facebook', passport.authenticate('facebook', { scope : ['email'] }));
+    app.get('/auth/facebook', passport.authenticate('facebook', { scope : ['email'] }), function(){
+        console.log('facebook');
+    });
 
     // handle the callback after facebook has authenticated the user
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
             successRedirect : '/',
-            failureRedirect : '/home'
+            failureRedirect : '/login'
         }));
 
     // route for logging out
-    app.get('/logout', function(req, res) {
+    app.get('/auth/logout', function(req, res) {
         req.logout();
         res.redirect('/');
     });
+
+    app.get('*', function(req, res){
+        res.render('index');
+    })
 
 };
 
@@ -35,9 +46,11 @@ module.exports = function(app, passport) {
 function ensureAuthentication(req, res, next) {
 
     // if user is authenticated in the session, carry on
-    if (req.isAuthenticated())
+    if (req.isAuthenticated()) {
+        res.sendStatus(200);
         return next();
+    }
+    else
+        res.sendStatus(401);
 
-    // if they aren't redirect them to the home page
-    res.redirect('/');
 }
