@@ -10,21 +10,9 @@ module.exports = function(app, passport) {
         res.render('partials/' + name);
     });
 
-    // route for login form
-    // route for processing the login form
-    // route for signup form
-    // route for processing the signup form
+    app.get('/profile', ensureAuthentication, function(req, res) {
 
-    // route for showing the profile page
-  /*  app.get('/profile', isLoggedIn, function(req, res) {
-        res.render('profile.ejs', {
-            user : req.user // get the user out of session and pass to template
-        });
     });
-*/
-    // =====================================
-    // FACEBOOK ROUTES =====================
-    // =====================================
     // route for facebook authentication and login
     app.get('/auth/facebook', passport.authenticate('facebook', { scope : ['email'] }));
 
@@ -44,7 +32,7 @@ module.exports = function(app, passport) {
 };
 
 // route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
+function ensureAuthentication(req, res, next) {
 
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated())

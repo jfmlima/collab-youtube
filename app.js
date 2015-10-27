@@ -124,6 +124,9 @@ var counter = 0;
 
 io.sockets.on('connection', function(socket){
   console.log("connected");
+  socket.on('authenticationRequest', function (name, fn) {
+    fn('woot');
+  });
   counter++;
 
   console.log("connections: ", counter);

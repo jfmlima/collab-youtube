@@ -5,31 +5,30 @@ angular.module('collabYoutube', ['collabYoutube.controllers', 'collabYoutube.ser
         $routeProvider.
             when('/', {
                 templateUrl: '/partials/index',
-                controller: 'mainController'
+                controller: 'mainController',
+                access: { requiredLogin: true }
             }).
-            /*when('/addPost', {
-                templateUrl: 'partials/addPost',
-                controller: AddPostCtrl
+            when('/login', {
+                templateUrl: '/partials/login',
+                controller: 'loginController',
+                access: { requiredLogin: false }
             }).
-            when('/readPost/:id', {
-                templateUrl: 'partials/readPost',
-                controller: ReadPostCtrl
-            }).
-            when('/editPost/:id', {
-                templateUrl: 'partials/editPost',
-                controller: EditPostCtrl
-            }).
-            when('/deletePost/:id', {
-                templateUrl: 'partials/deletePost',
-                controller: DeletePostCtrl
-            }).*/
             otherwise({
                 redirectTo: '/'
             });
+
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: false
         });
-    }]);
+    }])
+
+    .run(function($rootScope, $location, sessionService) {
+        $rootScope.$on("$routeChangeStart", function (event, nextRoute, currentRoute) {
+            if (nextRoute.access.requiredLogin && !sessionService.getUserAuthenticated()) {
+                $location.path("/login");
+            }
+        })
+    });
 
 
