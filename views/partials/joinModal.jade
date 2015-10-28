@@ -1,0 +1,17 @@
+//
+   Created by jorgelima on 10/28/15.
+
+div
+   .modal-header
+      h3.modal-title Join Room
+   .modal-body
+      ul
+         li(ng-repeat='item in items')
+            a(href='#', ng-click='$event.preventDefault(); selected.item = item') {{ item }}
+      |             Selected:
+      b {{ selected.item }}
+   .modal-footer
+      button.btn.btn-primary(type='button', ng-click='ok()') OK
+      button.btn.btn-warning(type='button', ng-click='cancel()') Cancel
+
+script(type='text/ng-template', id='joinModal').
