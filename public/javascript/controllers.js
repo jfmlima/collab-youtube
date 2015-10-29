@@ -22,6 +22,7 @@ angular.module('collabYoutube.controllers', [])
         $scope.joinRoom = function(size){
 
             $collab.join();
+            $collab.update();
 
             var joinModal = $uibModal.open({
                 animation: $scope.animationsEnabled,
@@ -52,6 +53,12 @@ angular.module('collabYoutube.controllers', [])
                 $log.info('Modal dismissed at: ' + new Date());
             });
         };
+
+
+    })
+
+    .controller('roomController', function($scope, $window, $http, $socket) {
+        $scope.formData = {};
 
 
     })

@@ -14,6 +14,8 @@ var debug = require('debug')('collabYoutube:server');
 var passport = require('passport');
 var flash    = require('connect-flash');
 var cors = require('cors');
+var uuid = require('node-uuid');
+
 var routes = require('./routes/');
 //var users = require('/routes/users');
 
@@ -26,6 +28,8 @@ mongoose.connect(configDB.url); // connect to our database
 
 
 var app = express();
+
+var Room = require('./models/room.js');
 
 
 /**
@@ -120,16 +124,91 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 var counter = 0;
+var people = {};
+var rooms = {};
+var clients = [];
 
-io.sockets.on('connection', function(socket){
+io.sockets.on('connection', function(clientSocket){
   console.log("connected");
-  socket.on('join', function (name, fn) {
-   console.log(name);
+
+
+  clientSocket.on('join', function (name) {
+    roomID = null;
+
+    console.log(name);
+    people[clientSocket.id] = {
+      "name": name,
+      "room": roomID
+    };
+
+    clientSocket.emit("update", "You have sucessfully connected to the server")
+
+    io.sockets.emit("update", people[clientSocket.id].name + " is online.");
+    io.sockets.emit("update-people", people);
+
+    clientSocket.emit("roomList", {rooms: rooms});
+
+    clients.push(clientSocket);
+
+
   });
+
+  clientSocket.on('createRoom', function (name) {
+
+    if(people[clientSocket.id].room == null){
+      var id = uuid.v4();
+      var room = new Room(name, id, clientSocket.id);
+      rooms[id] = room;
+      io.sockets.emit("roomList", {rooms: rooms});
+
+      clientSocket.room = name;
+      clientSocket.join(clientSocket.room);
+      room.addPerson(clientSocket.id);
+    }
+    else{
+      io.sockets.emit("update", "Sorry, you can only create one room");
+    }
+
+
+  });
+
+  clientSocket.on('joinRoom', function (id) {
+
+    var room = rooms[id];
+
+    if(clientSocket.id == room.owner){
+      clientSocket.emit("update", "You are the owner, and already joined this room");
+    }
+    else{
+      room.people.contains(clientSocket.id, function(found){
+        if(found){
+          clientSocket.emit("update", "You have already joined this room");
+        }
+        else{
+          if(people[clientSocket.id].inroom !== null){
+            clientSocket.emit("update", "You are already in one room (" + rooms[people[clientSocket.id].inroom].name+"), please leave it first to join another room.");
+          }
+          else {
+            room.addPerson(clientSocket.id);
+            people[clientSocket.id].inroom = id;
+            clientSocket.room = room.name;
+            clientSocket.join(clientSocket.room); //add person to the room
+            user = people[clientSocket.id];
+            io.sockets.in(clientSocket.room).emit("update", user.name + " has connected to " + room.name + " room.");
+            clientSocket.emit("update", "Welcome to " + room.name + ".");
+            clientSocket.emit("sendRoomID", {id: id});
+          }
+        }
+      });
+    }
+  });
+
+
   counter++;
 
   console.log("connections: ", counter);
-  socket.on('disconnect', function(){
+
+  clientSocket.on('disconnect', function(){
     counter--;
     console.log("disconnected");
     console.log("connections: ", counter);

@@ -34,4 +34,11 @@ angular.module('collabYoutube.services', [])
 
         }
 
+        this.update = function(){
+            $socket.on('update', function(data){
+                console.log(data);
+            });
+
+        }
+
     })

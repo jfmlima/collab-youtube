@@ -14,6 +14,10 @@ angular.module('collabYoutube', ['collabYoutube.controllers', 'collabYoutube.ser
                 templateUrl: '/partials/login',
                 controller: 'loginController',
             }).
+            when('/room/:id', {
+                templateUrl: '/partials/room',
+                controller: 'roomController',
+            }).
             otherwise({
                 redirectTo: '/'
             });
@@ -51,7 +55,6 @@ var checkLoggedin = function($q, $timeout, $http, $location, $rootScope, $sessio
         if (user !== '0'){
             deferred.resolve();
             $session.setUser(user);
-            console.log($session.getUser());
         }
         // Not Authenticated
         else { $rootScope.message = 'You need to log in.';
