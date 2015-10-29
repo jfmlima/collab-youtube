@@ -17,28 +17,36 @@ angular.module('collabYoutube.controllers', [])
         }
 
 
-
-        $scope.items = ['item1', 'item2', 'item3'];
-
         $scope.animationsEnabled = true;
 
         $scope.joinRoom = function(size){
 
             $collab.join();
 
-            var modalInstance = $uibModal.open({
+            var joinModal = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: '/partials/joinModal',
-                controller: 'ModalInstanceCtrl',
-                size: size,
-                resolve: {
-                    items: function () {
-                        return $scope.items;
-                    }
-                }
+                controller: 'joinRoomController',
+                size: size
             });
 
-            modalInstance.result.then(function (selectedItem) {
+            joinModal.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+
+        $scope.createRoom = function(size){
+
+            var createModal = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '/partials/createModal',
+                controller: 'createRoomController',
+                size: size
+            });
+
+            createModal.result.then(function (selectedItem) {
                 $scope.selected = selectedItem;
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
@@ -48,15 +56,21 @@ angular.module('collabYoutube.controllers', [])
 
     })
 
-    .controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
-
-        $scope.items = items;
-        $scope.selected = {
-            item: $scope.items[0]
-        };
+    .controller('joinRoomController', function ($scope, $uibModalInstance) {
 
         $scope.ok = function () {
-            $uibModalInstance.close($scope.selected.item);
+            console.log($scope.room_id);
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+    })
+
+    .controller('createRoomController', function ($scope, $uibModalInstance) {
+
+        $scope.ok = function () {
+            console.log($scope.room_id);
         };
 
         $scope.cancel = function () {

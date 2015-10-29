@@ -1,0 +1,22 @@
+//
+   Created by jorgelima on 10/28/15.
+
+div
+   .modal-header
+      h3.modal-title Create Room
+   .modal-body
+
+   label(for='room-id') Please provide the unique Room Identifier
+      .checkbox
+      label Password Protection
+          input(type='checkbox')
+
+   .input-group
+      span#basic-addon3.input-group-addon Room ID:
+      input#room-id.form-control(type='text', aria-describedby='basic-addon3', ng-model="room.id")
+
+   .modal-footer
+      button.btn.btn-primary(type='button', ng-click='ok()') OK
+      button.btn.btn-warning(type='button', ng-click='cancel()') Cancel
+
+script(type='text/ng-template', id='createModal').
