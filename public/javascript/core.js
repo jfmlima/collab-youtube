@@ -12,11 +12,14 @@ angular.module('collabYoutube', ['collabYoutube.controllers', 'collabYoutube.ser
             }).
             when('/login', {
                 templateUrl: '/partials/login',
-                controller: 'loginController',
+                controller: 'loginController'
             }).
             when('/room/:id', {
                 templateUrl: '/partials/room',
                 controller: 'roomController',
+                resolve: {
+                    loggedIn: checkLoggedin
+                }
             }).
             otherwise({
                 redirectTo: '/'

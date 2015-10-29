@@ -7,9 +7,8 @@ angular.module('collabYoutube.controllers', [])
     .controller('mainController', function($scope, $window, $http, $socket, $session, $collab, $uibModal, $log) {
         $scope.formData = {};
 
-        $socket.on("connect", function(){
-            console.log("connnected")
-        });
+        $collab.join();
+        $collab.update();
 
         $scope.logout = function()
         {
@@ -21,7 +20,6 @@ angular.module('collabYoutube.controllers', [])
 
         $scope.joinRoom = function(size){
 
-            $collab.join();
             $collab.update();
 
             var joinModal = $uibModal.open({
@@ -74,10 +72,18 @@ angular.module('collabYoutube.controllers', [])
         };
     })
 
-    .controller('createRoomController', function ($scope, $uibModalInstance) {
+    .controller('createRoomController', function ($scope, $socket, $uibModalInstance, $collab, $location) {
 
         $scope.ok = function () {
-            console.log($scope.room_id);
+
+            console.log($scope.room_name);
+
+            $collab.createRoom($scope.room_name);
+
+            $socket.on('roomCreation', function(data){
+                $location.url("/room/" + data);
+            })
+
         };
 
         $scope.cancel = function () {

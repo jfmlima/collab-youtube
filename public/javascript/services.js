@@ -24,7 +24,7 @@ angular.module('collabYoutube.services', [])
         }
     })
 
-    .service('$collab', function($socket, $session){
+    .service('$collab', function($rootScope, $socket, $session){
 
         this.join = function(){
             var user = $session.getUser();
@@ -39,6 +39,17 @@ angular.module('collabYoutube.services', [])
                 console.log(data);
             });
 
+        }
+
+
+        this.createRoom = function(name){
+            var id;
+            $socket.emit('createRoom', name);
+            $socket.on('roomCreation', function(data){
+                id = data;
+            })
+
+            return id;
         }
 
     })

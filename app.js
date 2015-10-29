@@ -162,8 +162,10 @@ io.sockets.on('connection', function(clientSocket){
       io.sockets.emit("roomList", {rooms: rooms});
 
       clientSocket.room = name;
+      people[clientSocket.id].room = name;
       clientSocket.join(clientSocket.room);
       room.addPerson(clientSocket.id);
+      clientSocket.emit("roomCreation", id);
     }
     else{
       io.sockets.emit("update", "Sorry, you can only create one room");
