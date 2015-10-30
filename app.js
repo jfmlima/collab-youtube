@@ -166,6 +166,7 @@ io.sockets.on('connection', function(clientSocket){
       clientSocket.join(clientSocket.room);
       room.addPerson(clientSocket.id);
       clientSocket.emit("roomCreation", id);
+      clientSocket.emit("updateRoom", {id: id, room: rooms[id]});
     }
     else{
       io.sockets.emit("update", "Sorry, you can only create one room");
@@ -202,6 +203,22 @@ io.sockets.on('connection', function(clientSocket){
         }
       });
     }
+  });
+
+  clientSocket.on('retrieveUserNames', function (id, callback) {
+
+    var room = rooms[id];
+    var names = [];
+
+    console.log(room);
+    room.people.forEach(function(user){
+      names.push(people[user].name);
+      console.log(people[user].name );
+
+    })
+
+    callback("error", names);
+
   });
 
 

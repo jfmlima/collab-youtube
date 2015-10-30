@@ -33,6 +33,19 @@ angular.module('collabYoutube.services', [])
         }
     })
 
+    .service("$room", function(){
+
+        var viewers;
+
+        this.updateViewers = function(viewers_){
+            viewers = viewers_;
+        }
+
+        this.getViewers = function(){
+            return viewers;
+        }
+    })
+
 
     .service('$collab', function($rootScope, $socket, $session){
 

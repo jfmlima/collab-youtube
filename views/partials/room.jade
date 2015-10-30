@@ -1,25 +1,21 @@
 div#intro
     h1 Welcome to Collaborative Youtube!
     div#menuButtons
-        .player
 
-        .user-list
+    .row
+        .col-md-4
+            .menu
+        .col-md-4
+            .player
 
-            ul.list-group
-                li.list-group-item Cras justo odio
-                li.list-group-item Dapibus ac facilisis in
-                li.list-group-item Morbi leo risus
-                li.list-group-item Porta ac consectetur ac
-                li.list-group-item Vestibulum at eros
-
-        div(class="row row-centered")
-                div(class ="col-xs-6 col-sm-3 col-centered")
-                    button(class="btn btn-primary" ng-click="createRoom()") Create New Room
-            div(class="row row-centered")
-                div(class ="col-xs-6 col-sm-3 col-centered")
-                    button(class="btn btn-primary" ng-click="joinRoom()") Join Room
-            div(class="row row-centered")
-                div(class ="col-xs-6 col-sm-3 col-centered")
-                    a(class="btn btn-primary", ng-click="logout()" ng-href="/auth/logout" target="_self" ) Logout
+        .col-md-4
+            .user-list
+                ul.list-group(ng-repeat="viewer in viewers")
+                    .h2 Viewers List
+                    li.list-group-item {{viewer}}
+                    //li.list-group-item Dapibus ac facilisis in
+                    //li.list-group-item Morbi leo risus
+                    //li.list-group-item Porta ac consectetur ac
+                    //li.list-group-item Vestibulum at eros
 
 
