@@ -55,7 +55,7 @@ angular.module('collabYoutube.controllers', [])
 
     })
 
-    .controller('roomController', function($scope, $window, $http, $socket) {
+    .controller('roomController', function($scope, $collab) {
         $scope.formData = {};
 
 
@@ -72,13 +72,15 @@ angular.module('collabYoutube.controllers', [])
         };
     })
 
-    .controller('createRoomController', function ($scope, $socket, $uibModalInstance, $collab, $location) {
+    .controller('createRoomController', function ($scope, $socket, $session, $uibModalInstance, $collab, $location) {
 
         $scope.ok = function () {
 
             console.log($scope.room_name);
 
             $collab.createRoom($scope.room_name);
+
+            $session.setOwner(true);
 
             $socket.on('roomCreation', function(data){
                 $location.url("/room/" + data);

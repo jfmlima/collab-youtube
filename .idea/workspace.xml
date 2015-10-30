@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0d5ee8f2-64f6-4c43-b7c8-83effd391342" name="Default" comment="">
+    <list default="true" id="0d5ee8f2-64f6-4c43-b7c8-83effd391342" name="Default" comment="interaction between server and client on creating room, and correct redirect to room page">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascript/controllers.js" afterPath="$PROJECT_DIR$/public/javascript/controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascript/core.js" afterPath="$PROJECT_DIR$/public/javascript/core.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/partials/createModal.jade" afterPath="$PROJECT_DIR$/views/partials/createModal.jade" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/partials/room.jade" afterPath="$PROJECT_DIR$/views/partials/room.jade" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascript/services.js" afterPath="$PROJECT_DIR$/public/javascript/services.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -34,7 +32,7 @@
         <entry file="file://$PROJECT_DIR$/public/javascript/controllers.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-8.6">
-              <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+              <caret line="58" column="29" selection-start-line="58" selection-start-column="29" selection-end-line="58" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -54,45 +52,27 @@
         <entry file="file://$PROJECT_DIR$/views/partials/index.jade">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding>
-                <marker date="1446138560863" expanded="true" signature="3:633" placeholder="..." />
-                <marker date="1446138560863" expanded="true" signature="58:633" placeholder="..." />
-                <marker date="1446138560863" expanded="true" signature="82:253" placeholder="..." />
-                <marker date="1446138560863" expanded="true" signature="124:253" placeholder="..." />
-                <marker date="1446138560863" expanded="true" signature="265:428" placeholder="..." />
-                <marker date="1446138560863" expanded="true" signature="307:428" placeholder="..." />
-                <marker date="1446138560863" expanded="true" signature="440:633" placeholder="..." />
-                <marker date="1446138560863" expanded="true" signature="482:633" placeholder="..." />
-              </folding>
+              <caret line="10" column="56" selection-start-line="10" selection-start-column="56" selection-end-line="10" selection-end-column="56" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.jade" pinned="false" current-in-tab="false">
+      <file leaf-file-name="login.jade" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/partials/login.jade">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding>
-                <marker date="1445915484148" expanded="true" signature="3:636" placeholder="..." />
-                <marker date="1445915484148" expanded="true" signature="58:636" placeholder="..." />
-                <marker date="1445915484148" expanded="true" signature="82:261" placeholder="..." />
-                <marker date="1445915484148" expanded="true" signature="124:261" placeholder="..." />
-                <marker date="1445915484148" expanded="true" signature="273:446" placeholder="..." />
-                <marker date="1445915484148" expanded="true" signature="315:446" placeholder="..." />
-                <marker date="1445915484148" expanded="true" signature="458:636" placeholder="..." />
-                <marker date="1445915484148" expanded="true" signature="500:636" placeholder="..." />
-              </folding>
+            <state vertical-scroll-proportion="0.42424244">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/users.js">
+      <file leaf-file-name="index.jade" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/index.jade">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+              <caret line="13" column="66" selection-start-line="13" selection-start-column="66" selection-end-line="13" selection-end-column="66" />
               <folding />
             </state>
           </provider>
@@ -108,11 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24028268">
-              <caret line="156" column="4" selection-start-line="156" selection-start-column="4" selection-end-line="156" selection-end-column="4" />
+            <state vertical-scroll-proportion="-0.64285713">
+              <caret line="175" column="37" selection-start-line="175" selection-start-column="37" selection-end-line="175" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -122,7 +102,7 @@
         <entry file="file://$PROJECT_DIR$/views/partials/room.jade">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -132,7 +112,7 @@
         <entry file="file://$PROJECT_DIR$/public/javascript/core.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="14" column="45" selection-start-line="14" selection-start-column="45" selection-end-line="14" selection-end-column="45" />
+              <caret line="48" column="7" selection-start-line="48" selection-start-column="7" selection-end-line="48" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -142,7 +122,7 @@
         <entry file="file://$PROJECT_DIR$/public/javascript/services.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="49" column="14" selection-start-line="47" selection-start-column="12" selection-end-line="49" selection-end-column="14" />
+              <caret line="40" column="18" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -201,11 +181,11 @@
         <option value="$PROJECT_DIR$/models/room.js" />
         <option value="$PROJECT_DIR$/config/passport.js" />
         <option value="$PROJECT_DIR$/views/partials/createModal.jade" />
-        <option value="$PROJECT_DIR$/views/partials/room.jade" />
-        <option value="$PROJECT_DIR$/public/javascript/services.js" />
-        <option value="$PROJECT_DIR$/public/javascript/controllers.js" />
         <option value="$PROJECT_DIR$/public/javascript/core.js" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/views/partials/room.jade" />
+        <option value="$PROJECT_DIR$/public/javascript/controllers.js" />
+        <option value="$PROJECT_DIR$/public/javascript/services.js" />
       </list>
     </option>
   </component>
@@ -741,7 +721,7 @@
       <workItem from="1445956886213" duration="8245000" />
       <workItem from="1445967584098" duration="14778000" />
       <workItem from="1446124397555" duration="3310000" />
-      <workItem from="1446145506543" duration="7434000" />
+      <workItem from="1446145506543" duration="12863000" />
     </task>
     <task id="LOCAL-00001" summary="Minor Fix">
       <created>1445899241140</created>
@@ -809,11 +789,17 @@
       <option name="project" value="LOCAL" />
       <updated>1446150529688</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="interaction between server and client on creating room, and correct redirect to room page">
+      <created>1446153154344</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1446153154344</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92634000" />
+    <option name="totallyTimeSpent" value="98063000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="25" width="1368" height="743" extended-state="6" />
@@ -848,21 +834,22 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32744783" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2375602" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15730338" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.115091465" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12727273" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32744783" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -892,7 +879,8 @@
     <MESSAGE value="Created modal for joining rooms" />
     <MESSAGE value="Created modal for room creation, join modal retrieves room identifier" />
     <MESSAGE value="socket functions on server for join server, create and join room" />
-    <option name="LAST_COMMIT_MESSAGE" value="socket functions on server for join server, create and join room" />
+    <MESSAGE value="interaction between server and client on creating room, and correct redirect to room page" />
+    <option name="LAST_COMMIT_MESSAGE" value="interaction between server and client on creating room, and correct redirect to room page" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1173,14 +1161,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/index.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="66" selection-start-line="13" selection-start-column="66" selection-end-line="13" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/partials/joinModal.jade">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1221,37 +1201,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/partials/login.jade">
+    <entry file="file://$PROJECT_DIR$/models/room.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <marker date="1445915484148" expanded="true" signature="3:636" placeholder="..." />
-            <marker date="1445915484148" expanded="true" signature="58:636" placeholder="..." />
-            <marker date="1445915484148" expanded="true" signature="82:261" placeholder="..." />
-            <marker date="1445915484148" expanded="true" signature="124:261" placeholder="..." />
-            <marker date="1445915484148" expanded="true" signature="273:446" placeholder="..." />
-            <marker date="1445915484148" expanded="true" signature="315:446" placeholder="..." />
-            <marker date="1445915484148" expanded="true" signature="458:636" placeholder="..." />
-            <marker date="1445915484148" expanded="true" signature="500:636" placeholder="..." />
-          </folding>
+          <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/index.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="66" selection-start-line="13" selection-start-column="66" selection-end-line="13" selection-end-column="66" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/partials/index.jade">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <marker date="1446138560863" expanded="true" signature="3:633" placeholder="..." />
-            <marker date="1446138560863" expanded="true" signature="58:633" placeholder="..." />
-            <marker date="1446138560863" expanded="true" signature="82:253" placeholder="..." />
-            <marker date="1446138560863" expanded="true" signature="124:253" placeholder="..." />
-            <marker date="1446138560863" expanded="true" signature="265:428" placeholder="..." />
-            <marker date="1446138560863" expanded="true" signature="307:428" placeholder="..." />
-            <marker date="1446138560863" expanded="true" signature="440:633" placeholder="..." />
-            <marker date="1446138560863" expanded="true" signature="482:633" placeholder="..." />
-          </folding>
+          <caret line="10" column="56" selection-start-line="10" selection-start-column="56" selection-end-line="10" selection-end-column="56" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1263,34 +1233,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/room.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/partials/room.jade">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascript/services.js">
+    <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="49" column="14" selection-start-line="47" selection-start-column="12" selection-end-line="49" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascript/controllers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.6">
-          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+        <state vertical-scroll-proportion="-0.64285713">
+          <caret line="175" column="37" selection-start-line="175" selection-start-column="37" selection-end-line="175" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -1298,15 +1252,31 @@
     <entry file="file://$PROJECT_DIR$/public/javascript/core.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="45" selection-start-line="14" selection-start-column="45" selection-end-line="14" selection-end-column="45" />
+          <caret line="48" column="7" selection-start-line="48" selection-start-column="7" selection-end-line="48" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
+    <entry file="file://$PROJECT_DIR$/public/javascript/services.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24028268">
-          <caret line="156" column="4" selection-start-line="156" selection-start-column="4" selection-end-line="156" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="40" column="18" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascript/controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.6">
+          <caret line="58" column="29" selection-start-line="58" selection-start-column="29" selection-end-line="58" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/partials/login.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42424244">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>
       </provider>

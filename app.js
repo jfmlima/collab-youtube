@@ -171,7 +171,6 @@ io.sockets.on('connection', function(clientSocket){
       io.sockets.emit("update", "Sorry, you can only create one room");
     }
 
-
   });
 
   clientSocket.on('joinRoom', function (id) {

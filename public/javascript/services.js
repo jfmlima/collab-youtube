@@ -10,6 +10,7 @@ angular.module('collabYoutube.services', [])
 
     .service('$session', function(){
         var user_;
+        var owner = false;
 
         this.setUser = function(user){
             user_ = user;
@@ -22,7 +23,16 @@ angular.module('collabYoutube.services', [])
             else
             return null;
         }
+
+        this.setOwner = function(value){
+            owner = value;
+        }
+
+        this.isRoomOwner = function(){
+            return owner;
+        }
     })
+
 
     .service('$collab', function($rootScope, $socket, $session){
 
@@ -43,13 +53,9 @@ angular.module('collabYoutube.services', [])
 
 
         this.createRoom = function(name){
-            var id;
-            $socket.emit('createRoom', name);
-            $socket.on('roomCreation', function(data){
-                id = data;
-            })
 
-            return id;
+            $socket.emit('createRoom', name);
+
         }
 
     })
