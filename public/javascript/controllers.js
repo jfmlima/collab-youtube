@@ -77,7 +77,18 @@ angular.module('collabYoutube.controllers', [])
             };
             $scope.player = true;
 
+            $socket.emit("readyState", {room: room_id, url: $scope.video_url});
+
         }
+
+        $socket.on("ready", function(data){
+            console.log(data);
+            $scope.videoframe = $sce.trustAsHtml("<iframe class='embed-responsive-item ng-isolate-scope' video-id='theBestVideo' id='unique-youtube-embed-id-1' frameborder='0' allowfullscreen='1' title='YouTube video player' width='640' height='390' src=https://youtube.com/embed/" + data + "></iframe>");
+            $scope.deliberatelyTrustDangerousSnippet = function() {
+                return $sce.trustAsHtml($scope.videoframe);
+            };
+            $scope.player = true;
+        })
 
 
 

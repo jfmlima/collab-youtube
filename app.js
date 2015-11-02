@@ -176,6 +176,7 @@ io.sockets.on('connection', function(clientSocket){
 
   clientSocket.on('joinRoom', function (id) {
 
+    console.log("ID " + id);
     var room = rooms[id];
 
     if(clientSocket.id == room.owner){
@@ -203,6 +204,14 @@ io.sockets.on('connection', function(clientSocket){
         }
       });
     }
+  });
+
+  clientSocket.on('readyState', function (id, callback) {
+
+    console.log("on: " + JSON.stringify(rooms[id.room]) + " with: " + id.room);
+    var name = rooms[id.room].name;
+    io.to(name).emit("ready", id.url);
+
   });
 
   clientSocket.on('retrieveUserNames', function (id, callback) {
