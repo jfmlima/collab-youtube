@@ -56,6 +56,7 @@ app.use(cors());
 app.use(session({
   secret: 'thatrealprotectedsecret',
   saveUninitialized: true,
+  proxy: true,
   resave: true
 })); // session
 
