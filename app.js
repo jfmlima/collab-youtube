@@ -71,6 +71,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 if (app.get('env') === 'production') {
+  session.cookie.maxAge = 1000*60*60;
   session.cookie.secure = true // serve secure cookies
 }
 //app.get('*', routes.index);
