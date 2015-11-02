@@ -55,7 +55,7 @@ angular.module('collabYoutube.controllers', [])
 
     })
 
-    .controller('roomController', function($scope, $collab, $routeParams, $socket, $room) {
+    .controller('roomController', function($scope, $collab, $routeParams, $socket, $sce, $room) {
         $scope.formData = {};
 
         var room_id = $routeParams.id;
@@ -64,6 +64,22 @@ angular.module('collabYoutube.controllers', [])
             $room.updateViewers(message);
             $scope.viewers = $room.getViewers();
         })
+
+
+
+        $scope.player = false;
+
+        $scope.ok = function(){
+            $scope.theBestVideo = 'sMKoNBRZM1M';
+            $scope.videoframe = $sce.trustAsHtml("<iframe class='embed-responsive-item ng-isolate-scope' video-id='theBestVideo' id='unique-youtube-embed-id-1' frameborder='0' allowfullscreen='1' title='YouTube video player' width='640' height='390' src=https://youtube.com/embed/" + $scope.video_url + "></iframe>");
+            $scope.deliberatelyTrustDangerousSnippet = function() {
+                return $sce.trustAsHtml($scope.videoframe);
+            };
+            $scope.player = true;
+
+        }
+
+
 
 
     })

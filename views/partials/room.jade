@@ -5,8 +5,17 @@ div#intro
     .row
         .col-md-4
             .menu
+                label(for='room-id')
+                    .input-group
+                        span#basic-addon3.input-group-addon Video ID:
+                        input#room-id.form-control(type='text', aria-describedby='basic-addon3', ng-model="video_url")
+                    button.btn.btn-primary(type='button', ng-click='ok()') OK
         .col-md-4
-            .player
+            .player(ng-if="player" ng-bind-html="videoframe" class="embed-responsive embed-responsive-16by9")
+
+
+
+
 
         .col-md-4
             .user-list

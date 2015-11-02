@@ -1,5 +1,10 @@
 // public/core.js
-angular.module('collabYoutube', ['collabYoutube.controllers', 'collabYoutube.services', 'ui.bootstrap', 'ngRoute', 'btford.socket-io'])
+angular.module('collabYoutube', ['collabYoutube.controllers', 'collabYoutube.services', 'youtube-embed', 'ui.bootstrap', 'ngRoute', 'btford.socket-io'])
+
+
+    .filter('unsafe', function($sce) {
+        return $sce.trustAsHtml;
+    })
 
     .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
         $routeProvider.
