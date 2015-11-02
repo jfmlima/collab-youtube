@@ -55,21 +55,40 @@ angular.module('collabYoutube.controllers', [])
 
     })
 
-    .controller('roomController', function($scope, $collab, $socket, $room) {
+    .controller('roomController', function($scope, $collab, $routeParams, $socket, $room) {
         $scope.formData = {};
 
+        var room_id = $routeParams.id;
 
-        $scope.viewers = $room.getViewers();
-
-        console.log("users: " + $scope.viewers);
+        $socket.emit("retrieveUserNames", room_id, function(error, message){
+            $room.updateViewers(message);
+            $scope.viewers = $room.getViewers();
+        })
 
 
     })
 
-    .controller('joinRoomController', function ($scope, $uibModalInstance) {
+    .controller('joinRoomController', function ($scope, $socket, $location, $uibModalInstance) {
+
+
+
 
         $scope.ok = function () {
-            console.log($scope.room_id);
+            var room_id = $scope.room_id;
+
+            console.log(room_id);
+
+            $socket.emit("roomExists", room_id, function(error, message){
+                console.log("exists: " + message);
+                if (message){
+
+                    $socket.emit("joinRoom", room_id)
+                    $location.url("/room/" + room_id);
+                }
+                else{
+                    console.log("Room doesn't exists.")
+                }
+            })
         };
 
         $scope.cancel = function () {

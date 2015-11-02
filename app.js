@@ -187,7 +187,7 @@ io.sockets.on('connection', function(clientSocket){
           clientSocket.emit("update", "You have already joined this room");
         }
         else{
-          if(people[clientSocket.id].inroom !== null){
+          if(people[clientSocket.id].inroom !== undefined){
             clientSocket.emit("update", "You are already in one room (" + rooms[people[clientSocket.id].inroom].name+"), please leave it first to join another room.");
           }
           else {
@@ -218,6 +218,23 @@ io.sockets.on('connection', function(clientSocket){
     })
 
     callback("error", names);
+
+  });
+
+  clientSocket.on('roomExists', function (id, callback) {
+
+    var room = rooms[id];
+    var names = [];
+
+    console.log("room: " + id);
+
+    if(room !== undefined){
+      callback("error", true);
+    }
+    else
+      callback("error", false);
+
+
 
   });
 
@@ -294,3 +311,16 @@ function onListening() {
       : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+Array.prototype.contains = function(k, callback) {
+  var self = this;
+  return (function check(i) {
+    if (i >= self.length) {
+      return callback(false);
+    }
+    if (self[i] === k) {
+      return callback(true);
+    }
+    return process.nextTick(check.bind(null, i+1));
+  }(0));
+};
