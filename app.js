@@ -210,7 +210,7 @@ io.sockets.on('connection', function(clientSocket){
 
     console.log("on: " + JSON.stringify(rooms[id.room]) + " with: " + id.room);
     var name = rooms[id.room].name;
-    io.to(name).emit("ready", id.url);
+    io.sockets.in(name).emit("ready", id.url);
 
   });
 
