@@ -1,0 +1,32 @@
+{
+  "name": "collabYoutube",
+  "description": "Collaborative Youtube",
+  "main": "app.js",
+  "authors": [
+    "Jorge Lima <ei10102@fe.up.pt>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "view",
+    "youtube",
+    "collaborative"
+  ],
+  "homepage": "https://github.com/jflima92/collabYoutube",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-socket-io": "~0.7.0",
+    "angular-bootstrap": "~0.14.3",
+    "angular-route": "~1.4.7",
+    "bootstrap": "~3.3.5",
+    "angular-youtube-mb": "~1.1.1"
+  }
+}
