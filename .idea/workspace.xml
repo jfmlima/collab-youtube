@@ -68,8 +68,8 @@
       <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.42959428">
-              <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.21479714">
+              <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -893,7 +893,7 @@
       <workItem from="1446465279567" duration="4693000" />
       <workItem from="1446487517568" duration="1611000" />
       <workItem from="1447174009165" duration="372000" />
-      <workItem from="1447180050827" duration="1419000" />
+      <workItem from="1447180050827" duration="1550000" />
     </task>
     <task id="LOCAL-00001" summary="Minor Fix">
       <created>1445899241140</created>
@@ -1051,11 +1051,17 @@
       <option name="project" value="LOCAL" />
       <updated>1447181321254</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="added bower to package">
+      <created>1447181484078</created>
+      <option name="number" value="00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1447181484078</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="126701000" />
+    <option name="totallyTimeSpent" value="126832000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1366" height="743" extended-state="0" />
@@ -1099,7 +1105,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Minor Fix" />
     <MESSAGE value="Added Angular Bootstrap" />
     <MESSAGE value="Added Facebook Login" />
     <MESSAGE value="Facebook login works, needing fix on permissions to access" />
@@ -1124,7 +1129,8 @@
     <MESSAGE value="added bower install on start" />
     <MESSAGE value="added bower.json" />
     <MESSAGE value="minor fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor fixes" />
+    <MESSAGE value="added bower to package" />
+    <option name="LAST_COMMIT_MESSAGE" value="added bower to package" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1499,8 +1505,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42959428">
-          <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.21479714">
+          <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
           <folding />
         </state>
       </provider>
