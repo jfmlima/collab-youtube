@@ -893,7 +893,7 @@
       <workItem from="1446465279567" duration="4693000" />
       <workItem from="1446487517568" duration="1611000" />
       <workItem from="1447174009165" duration="372000" />
-      <workItem from="1447180050827" duration="1263000" />
+      <workItem from="1447180050827" duration="1419000" />
     </task>
     <task id="LOCAL-00001" summary="Minor Fix">
       <created>1445899241140</created>
@@ -1045,11 +1045,17 @@
       <option name="project" value="LOCAL" />
       <updated>1447181186546</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="minor fixes">
+      <created>1447181321254</created>
+      <option name="number" value="00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1447181321254</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="126545000" />
+    <option name="totallyTimeSpent" value="126701000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1366" height="743" extended-state="0" />
@@ -1117,7 +1123,8 @@
     <MESSAGE value="new heroku attempo" />
     <MESSAGE value="added bower install on start" />
     <MESSAGE value="added bower.json" />
-    <option name="LAST_COMMIT_MESSAGE" value="added bower.json" />
+    <MESSAGE value="minor fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
