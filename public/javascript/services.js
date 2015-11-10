@@ -47,7 +47,7 @@ angular.module('collabYoutube.services', [])
     })
 
 
-    .service('$collab', function($rootScope, $socket, $session){
+    .service('$collab', function($rootScope, $socket, $session, $room){
 
         this.join = function(){
             var user = $session.getUser();
@@ -69,6 +69,17 @@ angular.module('collabYoutube.services', [])
 
             $socket.emit('createRoom', name);
 
+        }
+
+        this.updateRoomUsers = function(room_id){
+            $socket.emit("retrieveUserNames", room_id, function(error, message){
+                $room.updateViewers(message);
+                $rootScope.viewers = $room.getViewers();
+            })
+        }
+
+        this.setReady = function(room_id, video_url){
+            $socket.emit("readyState", {room: room_id, url: video_url});
         }
 
     })

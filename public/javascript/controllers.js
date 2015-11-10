@@ -60,10 +60,7 @@ angular.module('collabYoutube.controllers', [])
 
         var room_id = $routeParams.id;
 
-        $socket.emit("retrieveUserNames", room_id, function(error, message){
-            $room.updateViewers(message);
-            $scope.viewers = $room.getViewers();
-        })
+        $collab.updateRoomUsers(room_id);
 
 
 
@@ -77,7 +74,7 @@ angular.module('collabYoutube.controllers', [])
             };
             $scope.player = true;
 
-            $socket.emit("readyState", {room: room_id, url: $scope.video_url});
+            $collab.setReady(room_id, $scope.video_url);
 
         }
 
