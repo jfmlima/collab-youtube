@@ -78,8 +78,8 @@
       <file leaf-file-name="auth.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/auth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.08071749">
-              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.32286996">
+              <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -907,7 +907,7 @@
       <workItem from="1446465279567" duration="4693000" />
       <workItem from="1446487517568" duration="1611000" />
       <workItem from="1447174009165" duration="372000" />
-      <workItem from="1447180050827" duration="2247000" />
+      <workItem from="1447180050827" duration="2825000" />
     </task>
     <task id="LOCAL-00001" summary="Minor Fix">
       <created>1445899241140</created>
@@ -1077,11 +1077,17 @@
       <option name="project" value="LOCAL" />
       <updated>1447181604997</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="changed callback for heroku">
+      <created>1447182306051</created>
+      <option name="number" value="00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1447182306051</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="127529000" />
+    <option name="totallyTimeSpent" value="128107000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1366" height="743" extended-state="0" />
@@ -1125,7 +1131,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added Facebook Login" />
     <MESSAGE value="Facebook login works, needing fix on permissions to access" />
     <MESSAGE value="Authentication fully functional" />
     <MESSAGE value="Session service created so name and stuff get passed trough all routes" />
@@ -1150,7 +1155,8 @@
     <MESSAGE value="minor fixes" />
     <MESSAGE value="added bower to package" />
     <MESSAGE value="minor" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor" />
+    <MESSAGE value="changed callback for heroku" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed callback for heroku" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1527,8 +1533,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/auth.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.08071749">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.32286996">
+          <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
           <folding />
         </state>
       </provider>
