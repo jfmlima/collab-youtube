@@ -50,7 +50,10 @@ function ensureAuthentication(req, res, next) {
         res.send(req.user);
         //return next();
     }
-    else
+    else{
+        console.log("CENASSASADASDA");
         res.sendStatus(401);
+    }
+
 
 }

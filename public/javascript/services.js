@@ -78,8 +78,33 @@ angular.module('collabYoutube.services', [])
             })
         }
 
+        this.isRoomOwner = function(room_id, callback){
+            $socket.emit("isRoomOwner", room_id, function(error, message){
+                callback(message);
+            })
+        }
+
         this.setReady = function(room_id, video_url){
             $socket.emit("readyState", {room: room_id, url: video_url});
+        }
+
+    })
+
+    .service("$youtube", function(){
+
+        var player;
+
+        this.initPlayer = function(){
+
+            player = new YT.Player('player', {
+                height: '390',
+                width: '640',
+                videoId: 'M7lc1UVf-VE',
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
         }
 
     })

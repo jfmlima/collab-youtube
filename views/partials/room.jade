@@ -11,7 +11,13 @@ div#intro
                         input#room-id.form-control(type='text', aria-describedby='basic-addon3', ng-model="video_url")
                     button.btn.btn-primary(type='button', ng-click='ok()') OK
         .col-md-4
-            .player(ng-if="player" ng-bind-html="videoframe" class="embed-responsive embed-responsive-16by9")
+            img(ng-src="{{myStyle}}" ng-if="isOwner == false && preview")
+            .player-wrapper(ng-if="player")
+                .player-overlay(ng-style="myStyle")
+                youtube-video(video-id="theBestVideo" player="playerSettings.player" player-vars="playerSettings.vars" player-width="'100%'" player-height="'300px'")
+                button.btn.btn-primary(type='button', ng-click='play()') Play
+                button.btn.btn-primary(type='button', ng-click='pause()') Pause
+
 
 
 

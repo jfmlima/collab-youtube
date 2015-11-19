@@ -55,36 +55,54 @@ angular.module('collabYoutube.controllers', [])
 
     })
 
-    .controller('roomController', function($scope, $collab, $routeParams, $socket, $sce, $room) {
+    .controller('roomController', function($scope, $collab, $routeParams, $socket, isOwner, $sce, $room) {
         $scope.formData = {};
 
+        $scope.isOwner = isOwner;
         var room_id = $routeParams.id;
 
         $collab.updateRoomUsers(room_id);
 
+        $scope.playerSettings = {
+            player: null,
+            vars: {
+                controls: 0,
+                disablekb: 0
+            }
+        }
 
-
+        $scope.myStyle = "http://img.youtube.com/vi/" + $scope.video_url + "/0.jpg"
         $scope.player = false;
 
         $scope.ok = function(){
-            $scope.theBestVideo = 'sMKoNBRZM1M';
-            $scope.videoframe = $sce.trustAsHtml("<iframe class='embed-responsive-item ng-isolate-scope' video-id='theBestVideo' id='unique-youtube-embed-id-1' frameborder='0' allowfullscreen='1' title='YouTube video player' width='640' height='390' src=https://youtube.com/embed/" + $scope.video_url + "></iframe>");
-            $scope.deliberatelyTrustDangerousSnippet = function() {
-                return $sce.trustAsHtml($scope.videoframe);
-            };
+
+            $scope.theBestVideo = $scope.video_url;
+
+            /*$scope.videoframe = $sce.trustAsHtml("<iframe class='embed-responsive-item ng-isolate-scope' video-id='theBestVideo' id='unique-youtube-embed-id-1' frameborder='0' allowfullscreen='1' title='YouTube video player' width='640' height='390' src=https://youtube.com/embed/" + $scope.video_url + "></iframe>");
+             $scope.deliberatelyTrustDangerousSnippet = function() {
+             return $sce.trustAsHtml($scope.videoframe);
+             };*/
+
             $scope.player = true;
 
             $collab.setReady(room_id, $scope.video_url);
 
         }
 
+        $scope.play = function(){
+            $scope.playerSettings.player.playVideo();
+        }
+
         $socket.on("ready", function(data){
             console.log(data);
-            $scope.videoframe = $sce.trustAsHtml("<iframe class='embed-responsive-item ng-isolate-scope' video-id='theBestVideo' id='unique-youtube-embed-id-1' frameborder='0' allowfullscreen='1' title='YouTube video player' width='640' height='390' src=https://youtube.com/embed/" + data + "></iframe>");
-            $scope.deliberatelyTrustDangerousSnippet = function() {
-                return $sce.trustAsHtml($scope.videoframe);
-            };
-            $scope.player = true;
+            $scope.theBestVideo = data;
+            $scope.myStyle = "http://img.youtube.com/vi/" + data + "/0.jpg"
+
+            /* $scope.videoframe = $sce.trustAsHtml("<iframe class='embed-responsive-item ng-isolate-scope' video-id='theBestVideo' id='unique-youtube-embed-id-1' frameborder='0' allowfullscreen='1' title='YouTube video player' width='640' height='390' src=https://youtube.com/embed/" + data + "></iframe>");
+             $scope.deliberatelyTrustDangerousSnippet = function() {
+             return $sce.trustAsHtml($scope.videoframe);
+             };*/
+            $scope.preview = true;
         })
 
 
@@ -95,14 +113,12 @@ angular.module('collabYoutube.controllers', [])
     .controller('joinRoomController', function ($scope, $socket, $location, $uibModalInstance) {
 
 
-
-
         $scope.ok = function () {
             var room_id = $scope.room_id;
 
             console.log(room_id);
 
-            $socket.emit("roomExists", room_id, function(error, message){
+            $socket.emit("roomExists", room_id, function(error, message){  //TODO  change this to service and use callback to retrieve the value
                 console.log("exists: " + message);
                 if (message){
 
@@ -113,6 +129,7 @@ angular.module('collabYoutube.controllers', [])
                     console.log("Room doesn't exists.")
                 }
             })
+            $uibModalInstance.dismiss('cancel');
         };
 
         $scope.cancel = function () {
@@ -139,6 +156,7 @@ angular.module('collabYoutube.controllers', [])
                     $room.updateViewers(message);
                 })
             })
+            $uibModalInstance.dismiss('cancel');
 
 
         };

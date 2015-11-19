@@ -58,10 +58,7 @@ app.use(session({
   saveUninitialized: true,
   proxy: true,
   resave: true,
-  cookie : {
-    secure : true,
-    maxAge: 5184000000 // 2 months
-  }
+
 })); // session
 
 app.use(logger('dev'));
@@ -73,6 +70,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
+if (app.get('env') === 'production') {
+  session.cookie.maxAge = 1000*60*60;
+  session.cookie.secure = true // serve secure cookies
+}
 //app.get('*', routes.index);
 
 require('./routes/routes.js')(app, passport);
@@ -239,6 +242,25 @@ io.sockets.on('connection', function(clientSocket){
     console.log("room: " + id);
 
     if(room !== undefined){
+      callback("error", true);
+    }
+    else
+      callback("error", false);
+
+
+
+  });
+
+  clientSocket.on('isRoomOwner', function (id, callback) {
+
+    var room = rooms[id];
+    var names = [];
+
+    console.log("room: " + id);
+
+    console.log("user: " + clientSocket.id);
+
+    if(room.owner == clientSocket.id){
       callback("error", true);
     }
     else

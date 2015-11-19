@@ -23,6 +23,13 @@ angular.module('collabYoutube', ['collabYoutube.controllers', 'collabYoutube.ser
                 templateUrl: '/partials/room',
                 controller: 'roomController',
                 resolve: {
+                    isOwner: function($q, $collab, $route){
+                        var defer = $q.defer()
+                        $collab.isRoomOwner($route.current.params.id, function(callback){
+                            defer.resolve(callback);
+                        })
+                        return defer.promise;
+                    },
                     loggedIn: checkLoggedin
                 }
             }).
