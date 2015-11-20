@@ -22,3 +22,12 @@ a {
   /* inline-block space fix */
   margin-right:35%;
 }
+#videoOverlay {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-style: solid;
+  color: #555;
+  z-index: 3;
+  opacity: 0;
+}

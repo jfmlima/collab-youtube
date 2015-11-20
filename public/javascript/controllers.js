@@ -57,7 +57,7 @@ angular.module('collabYoutube.controllers', [])
 
     .controller('roomController', function($scope, $collab, $routeParams, $socket, isOwner, $sce, $room) {
         $scope.formData = {};
-
+        $scope.video_url = null;
         $scope.isOwner = isOwner;
         var room_id = $routeParams.id;
 
@@ -90,7 +90,13 @@ angular.module('collabYoutube.controllers', [])
         }
 
         $scope.play = function(){
+            $collab.playVideo(room_id, $scope.video_url);
             $scope.playerSettings.player.playVideo();
+        }
+
+        $scope.pause = function(){
+            $collab.pauseVideo(room_id, $scope.video_url);
+            $scope.playerSettings.player.pauseVideo();
         }
 
         $socket.on("ready", function(data){
@@ -103,6 +109,22 @@ angular.module('collabYoutube.controllers', [])
              return $sce.trustAsHtml($scope.videoframe);
              };*/
             $scope.preview = true;
+        })
+
+        $socket.on("play", function(url){
+            $scope.theBestVideo = url;
+            $scope.preview = false;
+            $scope.player = true;
+            $scope.$on('youtube.player.ready', function ($event, player) {
+                player.playVideo();
+            });
+        })
+
+        $socket.on("pause", function(url){
+
+            $scope.$on('youtube.player.ready', function ($event, player) {
+                player.pauseVideo();
+            });
         })
 
 

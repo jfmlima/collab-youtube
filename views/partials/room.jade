@@ -13,7 +13,7 @@ div#intro
         .col-md-4
             img(ng-src="{{myStyle}}" ng-if="isOwner == false && preview")
             .player-wrapper(ng-if="player")
-                .player-overlay(ng-style="myStyle")
+                img#videoOverlay(src='http://i.stack.imgur.com/TMCfE.png' width="100%" height="90%")
                 youtube-video(video-id="theBestVideo" player="playerSettings.player" player-vars="playerSettings.vars" player-width="'100%'" player-height="'300px'")
                 button.btn.btn-primary(type='button', ng-click='play()') Play
                 button.btn.btn-primary(type='button', ng-click='pause()') Pause

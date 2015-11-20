@@ -88,6 +88,13 @@ angular.module('collabYoutube.services', [])
             $socket.emit("readyState", {room: room_id, url: video_url});
         }
 
+        this.playVideo = function(room_id, video_url){
+            $socket.emit("playVideo", {room: room_id, url: video_url});
+        }
+        this.pauseVideo = function(room_id, video_url){
+            $socket.emit("pauseVideo", {room: room_id, url: video_url});
+        }
+
     })
 
     .service("$youtube", function(){

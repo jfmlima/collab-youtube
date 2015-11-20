@@ -270,6 +270,38 @@ io.sockets.on('connection', function(clientSocket){
 
   });
 
+  clientSocket.on('playVideo', function (data, callback) {
+
+    console.log(JSON.stringify(data));
+    var room = rooms[data.room];
+    var video_url = data.url;
+    var name = rooms[data.room].name
+
+    console.log("room: " + data.room);
+
+    console.log("user: " + clientSocket.id);
+    console.log("video: " + video_url);
+
+    io.sockets.in(name).emit("play", video_url);
+
+
+
+  });
+
+  clientSocket.on('playVideo', function (data, callback) {
+
+    console.log(JSON.stringify(data));
+    var room = rooms[data.room];
+    var video_url = data.url;
+    var name = rooms[data.room].name
+
+
+    io.sockets.in(name).emit("pause", video_url);
+
+
+
+  });
+
 
   counter++;
 
