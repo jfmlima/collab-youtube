@@ -55,13 +55,26 @@ angular.module('collabYoutube.controllers', [])
 
     })
 
-    .controller('roomController', function($scope, $collab, $routeParams, $socket, isOwner, $sce, $room) {
+    .controller('roomController', function($scope, $collab, $routeParams, $socket, isOwner, $filter, $rootScope, $q) {
+
+        var update_users = function(){
+
+           $collab.updateRoomUsers(room_id, function(callback){
+                console.log("call: " + callback);
+                $scope.viewers = callback;
+            });
+        }
+
         $scope.formData = {};
         $scope.video_url = null;
         $scope.isOwner = isOwner;
         var room_id = $routeParams.id;
 
-        $collab.updateRoomUsers(room_id);
+        update_users();
+
+
+
+        console.log($scope.viewers);
 
         $scope.playerSettings = {
             player: null,
@@ -74,6 +87,7 @@ angular.module('collabYoutube.controllers', [])
         $scope.myStyle = "http://img.youtube.com/vi/" + $scope.video_url + "/0.jpg"
         $scope.player = false;
 
+
         $scope.ok = function(){
 
             $scope.theBestVideo = $scope.video_url;
@@ -85,7 +99,7 @@ angular.module('collabYoutube.controllers', [])
 
             $scope.player = true;
 
-            $collab.setReady(room_id, $scope.video_url);
+            $collab.setVideoReady(room_id, $scope.video_url);
 
         }
 
@@ -99,6 +113,11 @@ angular.module('collabYoutube.controllers', [])
             $scope.playerSettings.player.pauseVideo();
         }
 
+        $scope.setReady = function(){
+            console.log("Im READYYYY in " + room_id);
+            $collab.clientReady(room_id);
+        }
+
         $socket.on("ready", function(data){
             console.log(data);
             $scope.theBestVideo = data;
@@ -109,6 +128,12 @@ angular.module('collabYoutube.controllers', [])
              return $sce.trustAsHtml($scope.videoframe);
              };*/
             $scope.preview = true;
+        })
+
+        $socket.on("clientIsReady", function(data){
+
+            update_users();
+
         })
 
         $socket.on("play", function(url){
@@ -192,4 +217,5 @@ angular.module('collabYoutube.controllers', [])
         $scope.formData = {};
 
 
-    });
+    })
+

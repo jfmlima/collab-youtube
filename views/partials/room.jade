@@ -12,11 +12,13 @@ div#intro
                     button.btn.btn-primary(type='button', ng-click='ok()') OK
         .col-md-4
             img(ng-src="{{myStyle}}" ng-if="isOwner == false && preview")
+            button.btn.btn-primary(type='button', ng-click='setReady()' ng-if="isOwner == false") Ready
             .player-wrapper(ng-if="player")
                 img#videoOverlay(src='http://i.stack.imgur.com/TMCfE.png' width="100%" height="90%")
                 youtube-video(video-id="theBestVideo" player="playerSettings.player" player-vars="playerSettings.vars" player-width="'100%'" player-height="'300px'")
-                button.btn.btn-primary(type='button', ng-click='play()') Play
-                button.btn.btn-primary(type='button', ng-click='pause()') Pause
+
+                button.btn.btn-primary(type='button', ng-click='play()' ng-if="isOwner") Play
+                button.btn.btn-primary(type='button', ng-click='pause()' ng-if="isOwner") Pause
 
 
 
@@ -27,9 +29,9 @@ div#intro
             .user-list
                 .h2 Viewers List
                 ul.list-group(ng-repeat="viewer in viewers")
-                    li.list-group-item {{viewer}}
-                        span.badge(ng-if ="viewer.isReady == true" style = "background-color: green") R
-                        span.badge(ng-if ="viewer.isReady == false" style = "background-color: #d80000") NR
+                    li.list-group-item {{viewer.name}}
+                        span.badge(ng-if ="viewer.ready == true" style = "background-color: green") R
+                        span.badge(ng-if ="viewer.ready == false" style = "background-color: #d80000") NR
                     //li.list-group-item Dapibus ac facilisis in
                     //li.list-group-item Morbi leo risus
                     //li.list-group-item Porta ac consectetur ac

@@ -142,7 +142,8 @@ io.sockets.on('connection', function(clientSocket){
     console.log(name);
     people[clientSocket.id] = {
       "name": name,
-      "room": roomID
+      "room": roomID,
+      ready: false
     };
 
     clientSocket.emit("update", "You have sucessfully connected to the server")
@@ -167,6 +168,7 @@ io.sockets.on('connection', function(clientSocket){
 
       clientSocket.room = name;
       people[clientSocket.id].room = name;
+      people[clientSocket.id].ready = true;
       clientSocket.join(clientSocket.room);
       room.addPerson(clientSocket.id);
       clientSocket.emit("roomCreation", id);
@@ -225,7 +227,7 @@ io.sockets.on('connection', function(clientSocket){
 
     console.log(room);
     room.people.forEach(function(user){
-      names.push(people[user].name);
+      names.push({name: people[user].name, ready: people[user].ready});
       console.log(people[user].name );
 
     })
@@ -265,6 +267,25 @@ io.sockets.on('connection', function(clientSocket){
     }
     else
       callback("error", false);
+
+
+
+  });
+
+  clientSocket.on('clientReady', function (id, callback) {
+
+    var room = rooms[id];
+    var names = [];
+    var name = rooms[id].name;
+
+
+    console.log("room: " + id);
+
+    console.log("user: " + clientSocket.id);
+
+    people[clientSocket.id].ready = true;
+
+    io.sockets.in(name).emit("clientIsReady", people[clientSocket.id].name);
 
 
 

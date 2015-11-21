@@ -71,10 +71,12 @@ angular.module('collabYoutube.services', [])
 
         }
 
-        this.updateRoomUsers = function(room_id){
+        this.updateRoomUsers = function(room_id, callback){
             $socket.emit("retrieveUserNames", room_id, function(error, message){
                 $room.updateViewers(message);
-                $rootScope.viewers = $room.getViewers();
+                /*$rootScope.viewers = $room.getViewers();
+                console.log($rootScope.viewers)*/
+                callback($room.getViewers());
             })
         }
 
@@ -84,7 +86,7 @@ angular.module('collabYoutube.services', [])
             })
         }
 
-        this.setReady = function(room_id, video_url){
+        this.setVideoReady = function(room_id, video_url){
             $socket.emit("readyState", {room: room_id, url: video_url});
         }
 
@@ -93,6 +95,10 @@ angular.module('collabYoutube.services', [])
         }
         this.pauseVideo = function(room_id, video_url){
             $socket.emit("pauseVideo", {room: room_id, url: video_url});
+        }
+
+        this.clientReady = function(room_id){
+            $socket.emit("clientReady", room_id);
         }
 
     })
