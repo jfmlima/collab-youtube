@@ -310,7 +310,7 @@ io.sockets.on('connection', function(clientSocket){
 
   });
 
-  clientSocket.on('playVideo', function (data, callback) {
+  clientSocket.on('pauseVideo', function (data, callback) {
 
     console.log(JSON.stringify(data));
     var room = rooms[data.room];

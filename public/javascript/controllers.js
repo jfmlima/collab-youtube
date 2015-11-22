@@ -105,11 +105,7 @@ angular.module('collabYoutube.controllers', [])
 
         $scope.play = function(){
             $collab.playVideo(room_id, $scope.video_url);
-            console.log($scope.playerSettings.player.currentState);
-
-            if($scope.playerSettings.player)   //TODO ERRORS
-                $scope.playerSettings.player.playVideo();
-
+            console.log($scope.playerSettings.player);
 
             $scope.playerSettings.player.playVideo();
 
