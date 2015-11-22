@@ -105,7 +105,14 @@ angular.module('collabYoutube.controllers', [])
 
         $scope.play = function(){
             $collab.playVideo(room_id, $scope.video_url);
+            console.log($scope.playerSettings.player.currentState);
+
+            if($scope.playerSettings.player)   //TODO ERRORS
+                $scope.playerSettings.player.playVideo();
+
+
             $scope.playerSettings.player.playVideo();
+
         }
 
         $scope.pause = function(){
@@ -130,6 +137,10 @@ angular.module('collabYoutube.controllers', [])
             $scope.preview = true;
         })
 
+        $socket.on("clientJoin", function(data){
+            update_users();
+        })
+
         $socket.on("clientIsReady", function(data){
 
             update_users();
@@ -141,15 +152,15 @@ angular.module('collabYoutube.controllers', [])
             $scope.preview = false;
             $scope.player = true;
             $scope.$on('youtube.player.ready', function ($event, player) {
+                console.log("player ready");
                 player.playVideo();
             });
+
         })
 
         $socket.on("pause", function(url){
 
-            $scope.$on('youtube.player.ready', function ($event, player) {
-                player.pauseVideo();
-            });
+            $scope.playerSettings.player.pauseVideo();
         })
 
 

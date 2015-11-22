@@ -204,6 +204,7 @@ io.sockets.on('connection', function(clientSocket){
             clientSocket.join(clientSocket.room); //add person to the room
             user = people[clientSocket.id];
             io.sockets.in(clientSocket.room).emit("update", user.name + " has connected to " + room.name + " room.");
+            io.sockets.in(clientSocket.room).emit("clientJoin", user.name + " has connected to " + room.name + " room.");
             clientSocket.emit("update", "Welcome to " + room.name + ".");
             clientSocket.emit("sendRoomID", {id: id});
           }
