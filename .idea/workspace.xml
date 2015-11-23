@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0d5ee8f2-64f6-4c43-b7c8-83effd391342" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascript/controllers.js" afterPath="$PROJECT_DIR$/public/javascript/controllers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/partials/room.jade" afterPath="$PROJECT_DIR$/views/partials/room.jade" />
     </list>
     <ignored path="colabYoutube.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,21 +28,9 @@
       <file leaf-file-name="controllers.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/javascript/controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.1384616">
+            <state vertical-scroll-proportion="1.0">
               <caret line="99" column="19" selection-start-line="99" selection-start-column="19" selection-end-line="99" selection-end-column="25" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="angular-youtube-embed.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/bower_components/angular-youtube-mb/src/angular-youtube-embed.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="151" column="37" selection-start-line="151" selection-start-column="28" selection-end-line="151" selection-end-column="37" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -52,7 +39,7 @@
         <entry file="file://$PROJECT_DIR$/views/partials/room.jade">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -152,10 +139,10 @@
         <option value="$PROJECT_DIR$/routes/routes.js" />
         <option value="$PROJECT_DIR$/public/javascript/core.js" />
         <option value="$PROJECT_DIR$/public/stylesheets/style.css" />
-        <option value="$PROJECT_DIR$/views/partials/room.jade" />
         <option value="$PROJECT_DIR$/public/javascript/services.js" />
         <option value="$PROJECT_DIR$/public/javascript/controllers.js" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/views/partials/room.jade" />
       </list>
     </option>
   </component>
@@ -937,7 +924,7 @@
       <workItem from="1448141437744" duration="373000" />
       <workItem from="1448142240659" duration="3713000" />
       <workItem from="1448151060270" duration="4635000" />
-      <workItem from="1448204087269" duration="1374000" />
+      <workItem from="1448204087269" duration="3503000" />
     </task>
     <task id="LOCAL-00001" summary="Minor Fix">
       <created>1445899241140</created>
@@ -1131,11 +1118,17 @@
       <option name="project" value="LOCAL" />
       <updated>1448204260301</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="fixed playback errors, pausing and playing functioning for admins and clients">
+      <created>1448231368142</created>
+      <option name="number" value="00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1448231368142</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="164205000" />
+    <option name="totallyTimeSpent" value="166334000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="32" width="1382" height="744" extended-state="6" />
@@ -1179,7 +1172,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Socket io sending user name when joining room" />
     <MESSAGE value="Created modal for joining rooms" />
     <MESSAGE value="Created modal for room creation, join modal retrieves room identifier" />
     <MESSAGE value="socket functions on server for join server, create and join room" />
@@ -1204,7 +1196,8 @@
     <MESSAGE value=" new callback" />
     <MESSAGE value="verification of ownership of the room, changed interface according to the latter" />
     <MESSAGE value="client list syncing on client join - errors or playback" />
-    <option name="LAST_COMMIT_MESSAGE" value="client list syncing on client join - errors or playback" />
+    <MESSAGE value="fixed playback errors, pausing and playing functioning for admins and clients" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed playback errors, pausing and playing functioning for admins and clients" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1550,26 +1543,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/partials/room.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascript/core.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="31" column="22" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="312" column="24" selection-start-line="312" selection-start-column="24" selection-end-line="312" selection-end-column="24" />
           <folding />
         </state>
       </provider>
@@ -1582,9 +1559,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="312" column="24" selection-start-line="312" selection-start-column="24" selection-end-line="312" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/partials/room.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascript/controllers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.1384616">
+        <state vertical-scroll-proportion="1.0">
           <caret line="99" column="19" selection-start-line="99" selection-start-column="19" selection-end-line="99" selection-end-column="25" />
           <folding />
         </state>
