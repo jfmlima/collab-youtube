@@ -16,7 +16,7 @@ div#intro
                     h2(style="margin-top: 5%") {{userName}}
                     button.btn.btn-primary(type='button', ng-click='exit()' style="margin-top: 10%") Exit Room
         .col-md-4()
-            img(ng-src="{{myStyle}}" ng-if="isOwner == false && preview")
+            img(ng-src="{{myStyle}}" width="100%" height="90%" ng-if="isOwner == false && preview")
             button.btn.btn-primary.btn-block(type='button', ng-click='setReady()' ng-if="isOwner == false && preview") Ready
             .player-wrapper(ng-if="player" style="text-align: center")
                 img#videoOverlay(src='http://i.stack.imgur.com/TMCfE.png' width="100%" height="90%")
@@ -35,8 +35,9 @@ div#intro
                 .h2 Viewers List
                 ul.list-group(ng-repeat="viewer in viewers")
                     li.list-group-item {{viewer.name}}
-                        span.badge(ng-if ="viewer.ready == true" style = "background-color: green") R
+                        span.badge(ng-if ="viewer.ready == true" style = "background-color: green" ) R
                         span.badge(ng-if ="viewer.ready == false" style = "background-color: #d80000") NR
+                        //img(ng-src='{{profilePic}}' width="5%" style="border-radius: 100%; margin-left:5%")
                     //li.list-group-item Dapibus ac facilisis in
                     //li.list-group-item Morbi leo risus
                     //li.list-group-item Porta ac consectetur ac

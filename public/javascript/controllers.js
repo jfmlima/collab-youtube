@@ -159,11 +159,18 @@ angular.module('collabYoutube.controllers', [])
             $scope.preview = false;
             $scope.player = true;
             console.log("AQUI");
-            $scope.$on('youtube.player.ready', function ($event, player) {
-                console.log("player ready");
-                player.playVideo();
-            });
-
+            //$scope.$on('youtube.player.ready', function ($event, player) {
+            //    console.log("player ready");
+            //    player.playVideo();
+            //});
+            if($scope.playerSettings.player)
+                $scope.playerSettings.player.playVideo()
+            else {
+                $scope.$on('youtube.player.ready', function ($event, player) {
+                    console.log("player ready");
+                    player.playVideo();
+                });
+            }
         })
 
         $socket.on("pause", function(url){
