@@ -51,7 +51,10 @@ angular.module('collabYoutube.services', [])
 
         this.join = function(){
             var user = $session.getUser();
-            var name = user.facebook.name;
+            if(user.facebook)
+                var name = user.facebook.name;
+            else if(user.google)
+                var name = user.google.name;
 
             $socket.emit('join', name);
 

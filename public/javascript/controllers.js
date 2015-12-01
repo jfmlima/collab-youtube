@@ -55,11 +55,11 @@ angular.module('collabYoutube.controllers', [])
 
     })
 
-    .controller('roomController', function($scope, $collab, $routeParams, $socket, isOwner, $filter, $rootScope, $q) {
+    .controller('roomController', function($scope, $collab, $routeParams, $session, $socket, isOwner, $filter, $rootScope, $q) {
 
-        var update_users = function(){
+        var update_users = function () {
 
-           $collab.updateRoomUsers(room_id, function(callback){
+            $collab.updateRoomUsers(room_id, function (callback) {
                 console.log("call: " + callback);
                 $scope.viewers = callback;
             });
@@ -68,6 +68,17 @@ angular.module('collabYoutube.controllers', [])
         $scope.formData = {};
         $scope.video_url = null;
         $scope.isOwner = isOwner;
+        var user = $session.getUser();
+        if (user.facebook) {
+
+            $scope.profilePic = 'http://graph.facebook.com/' + user.facebook.id + '/picture?width=270&height=270';
+            $scope.userName = user.facebook.name;
+        }
+        else if(user.google)
+        {
+
+        }
+        console.log(user);
         var room_id = $routeParams.id;
 
         update_users();
@@ -147,6 +158,7 @@ angular.module('collabYoutube.controllers', [])
             $scope.theBestVideo = url;
             $scope.preview = false;
             $scope.player = true;
+            console.log("AQUI");
             $scope.$on('youtube.player.ready', function ($event, player) {
                 console.log("player ready");
                 player.playVideo();
