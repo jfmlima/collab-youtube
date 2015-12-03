@@ -54,13 +54,13 @@ app.set('view engine', 'jade');
 
 app.use(cors());
 
-app.use(session({
+/*app.use(session({
   secret: 'thatrealprotectedsecret',
   saveUninitialized: true,
   proxy: true,
   resave: true,
 
-})); // session
+})); // session*/
 
 app.set('trust proxy', 1) // trust first proxy
 
