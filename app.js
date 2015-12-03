@@ -23,6 +23,8 @@ var routes = require('./routes/');
 var configDB = require('./config/database.js');
 
 // configuration ===============================================================
+console.log("AQUI");
+
 mongoose.connect(configDB.url || process.env.MONGOLAB_URI); // connect to our database
 
 
@@ -38,7 +40,7 @@ var Room = require('./models/room.js');
  */
 
 var server = http.createServer(app);
-
+console.log("AQUI1");
 var io = require('socket.io')(server);
 
 var port = normalizePort(process.env.PORT || '3000');
