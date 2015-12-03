@@ -17,13 +17,13 @@ var flash    = require('connect-flash');
 var cors = require('cors');
 var uuid = require('node-uuid');
 
-var routes = require('./routes/');
+
 //var users = require('/routes/users');
 
 var configDB = require('./config/database.js');
 
 // configuration ===============================================================
-console.log("AQUI");
+
 
 mongoose.connect(configDB.url || process.env.MONGOLAB_URI); // connect to our database
 
@@ -40,7 +40,7 @@ var Room = require('./models/room.js');
  */
 
 var server = http.createServer(app);
-console.log("AQUI1");
+
 var io = require('socket.io')(server);
 
 var port = normalizePort(process.env.PORT || '3000');
@@ -56,28 +56,30 @@ app.set('view engine', 'jade');
 
 app.use(cors());
 
-/*app.use(session({
+/*
+app.use(session({
   secret: 'thatrealprotectedsecret',
   saveUninitialized: true,
   proxy: true,
   resave: true,
 
-})); // session*/
+})); // session
+*/
 
 app.set('trust proxy', 1) // trust first proxy
 
 app.use(cookieSession({
   name: 'session',
   keys: ['key1', 'key2']
-}))
+}));
 
 // This allows you to set req.session.maxAge to let certain sessions
 // have a different value than the default.
-app.use(function (req, res, next) {
+/*app.use(function (req, res, next) {
   req.sessionOptions.maxAge = req.session.maxAge || req.sessionOptions.maxAge
-})
+})*/
 
-app.use(favicon(__dirname + '/public/images/favicon.ico'));
+//app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(logger('dev'));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
