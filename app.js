@@ -213,6 +213,65 @@ io.sockets.on('connection', function(clientSocket){
     }
   });
 
+  clientSocket.on("leaveRoom", function(id) {
+    var room = rooms[id];
+    if (clientSocket.id === room.owner) {
+      var i = 0;
+      while(i < clients.length) {
+        if(clients[i].id == room.people[i]) {
+          people[clients[i].id].inroom = null;
+          clients[i].leave(room.name);
+        }
+        ++i;
+      }
+      delete rooms[id];
+      people[room.owner].owns = null; //reset the owns object to null so new room can be added
+      io.sockets.emit("roomList", {rooms: rooms});
+      io.sockets.in(clientSocket.room).emit("update", "The owner (" +user.name + ") is leaving the room. The room is removed.");
+    } else {
+      room.people.contains(clientSocket.id, function(found) {
+        if (found) { //make sure that the client is in fact part of this room
+          var personIndex = room.people.indexOf(clientSocket.id);
+          room.people.splice(personIndex, 1);
+          io.sockets.in(clientSocket.room).emit("userLeaveRoom", people[clientSocket.id].name);
+          io.sockets.emit("update", people[clientSocket.id].name + " has left the room.");
+          clientSocket.leave(room.name);
+        }
+      });
+    }
+  });
+
+  /*clientSocket.on("disconnect", function() {
+    if (people[clientSocket.id]) {
+      if (people[clientSocket.id].inroom === null) {
+        io.sockets.emit("update", people[clientSocket.id].name + " has left the server.");
+        delete people[clientSocket.id];
+        io.sockets.emit("update-people", people);
+      } else {
+        if (people[clientSocket.id].owns !== null) {
+          var room= rooms[people[clientSocket.id].owns];
+          if (room && clientSocket.id === room.owner) {
+            var i = 0;
+            while(i < clients.length) {
+              if (clients[i].id === room.people[i]) {
+                people[clients[i].id].inroom = null;
+                clients[i].leave(room.name);
+              }
+              ++i;
+            }
+            delete rooms[people[clientSocket.id].owns];
+          }
+
+        }
+        io.sockets.in(clientSocket.room).emit("userLeaveRoom", people[clientSocket.id].name);
+        io.sockets.emit("update", people[clientSocket.id].name + " has left the server.");
+        delete people[clientSocket.id];
+        io.sockets.emit("update-people", people);
+        io.sockets.emit("roomList", {rooms: rooms});
+      }
+    }
+  });*/
+
   clientSocket.on('readyState', function (id, callback) {
 
     console.log("on: " + JSON.stringify(rooms[id.room]) + " with: " + id.room);

@@ -9,6 +9,7 @@ a {
 
 #intro h1 {
   text-align: center;
+  color: white;
 }
 
 .row-centered {
@@ -30,4 +31,9 @@ a {
   color: #555;
   z-index: 3;
   opacity: 0;
+}
+
+.button-bordeaux{
+  background-color: darkred !important;
+  border-color: darkred !important;
 }

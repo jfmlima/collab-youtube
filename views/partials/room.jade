@@ -9,24 +9,21 @@ div#intro
                     .input-group
                         span#basic-addon3.input-group-addon Video ID:
                         input#room-id.form-control(type='text', aria-describedby='basic-addon3', ng-model="video_url")
-                    button.btn.btn-primary(type='button', ng-click='ok()') OK
+                    button.btn.btn-primary.button-bordeaux(type='button', ng-click='ok()') OK
 
                 .wrapper(style="text-align: center")
                     img(ng-src='{{profilePic}}' width="35%" style="border-radius: 100%; margin-top: 15%" )
                     h2(style="margin-top: 5%") {{userName}}
-                    button.btn.btn-primary(type='button', ng-click='exit()' style="margin-top: 10%") Exit Room
+                    button.btn.btn-primary.button-bordeaux(type='button', ng-click='exit()' style="margin-top: 10%") Exit Room
         .col-md-4()
             img(ng-src="{{myStyle}}" width="100%" height="90%" ng-if="isOwner == false && preview")
-            button.btn.btn-primary.btn-block(type='button', ng-click='setReady()' ng-if="isOwner == false && preview") Ready
+            button.btn.btn-primary.btn-block.button-bordeaux(type='button', ng-click='setReady()' ng-if="isOwner == false && preview") Ready
             .player-wrapper(ng-if="player" style="text-align: center")
                 img#videoOverlay(src='http://i.stack.imgur.com/TMCfE.png' width="100%" height="90%")
                 youtube-video(video-id="theBestVideo" player="playerSettings.player" player-vars="playerSettings.vars" player-width="'100%'" player-height="'300px'")
 
-                button.btn.btn-primary(type='button', ng-click='play()' ng-if="isOwner") Play
-                button.btn.btn-primary(type='button', ng-click='pause()' ng-if="isOwner") Pause
-
-
-
+                button.btn.btn-primary.button-bordeaux(type='button', ng-click='play()' ng-if="isOwner") Play
+                button.btn.btn-primary.button-bordeaux(type='button', ng-click='pause()' ng-if="isOwner") Pause
 
 
 

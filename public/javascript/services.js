@@ -74,6 +74,12 @@ angular.module('collabYoutube.services', [])
 
         }
 
+        this.leaveRoom = function(name){
+
+            $socket.emit('leaveRoom', name);
+
+        }
+
         this.updateRoomUsers = function(room_id, callback){
             $socket.emit("retrieveUserNames", room_id, function(error, message){
                 $room.updateViewers(message);

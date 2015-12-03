@@ -55,7 +55,7 @@ angular.module('collabYoutube.controllers', [])
 
     })
 
-    .controller('roomController', function($scope, $collab, $routeParams, $session, $socket, isOwner, $filter, $rootScope, $q) {
+    .controller('roomController', function($scope, $collab, $routeParams, $session, $socket, isOwner, $location, $rootScope, $q) {
 
         var update_users = function () {
 
@@ -64,6 +64,7 @@ angular.module('collabYoutube.controllers', [])
                 $scope.viewers = callback;
             });
         }
+
 
         $scope.formData = {};
         $scope.video_url = null;
@@ -153,6 +154,19 @@ angular.module('collabYoutube.controllers', [])
             update_users();
 
         })
+
+        $socket.on("userLeaveRoom", function(data){
+
+            update_users();
+
+        })
+
+        $scope.exit = function(){
+            $collab.leaveRoom(room_id);
+            $location.path( "/" );
+
+
+        }
 
         $socket.on("play", function(url){
             $scope.theBestVideo = url;
