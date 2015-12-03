@@ -130,7 +130,6 @@ function ensureAuthentication(req, res, next) {
         //return next();
     }
     else{
-        console.log("CENASSASADASDA");
         res.sendStatus(401);
     }
 

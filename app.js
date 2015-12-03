@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var cookieSession = require('cookie-session')
 
 var mongoose = require('mongoose');
 
@@ -61,6 +62,20 @@ app.use(session({
 
 })); // session
 
+app.set('trust proxy', 1) // trust first proxy
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
+}))
+
+// This allows you to set req.session.maxAge to let certain sessions
+// have a different value than the default.
+app.use(function (req, res, next) {
+  req.sessionOptions.maxAge = req.session.maxAge || req.sessionOptions.maxAge
+})
+
+
 app.use(logger('dev'));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -72,15 +87,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-if (app.get('env') === 'production') {
+/*if (app.get('env') === 'production') {
   session.cookie.maxAge = 1000*60*60;
   session.cookie.secure = true // serve secure cookies
-}
+}*/
 //app.get('*', routes.index);
 
 require('./routes/routes.js')(app, passport);
-
-
 
 require('./config/passport')(passport);
 
