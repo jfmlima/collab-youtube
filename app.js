@@ -75,7 +75,7 @@ app.use(function (req, res, next) {
   req.sessionOptions.maxAge = req.session.maxAge || req.sessionOptions.maxAge
 })
 
-
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(logger('dev'));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
