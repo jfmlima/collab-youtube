@@ -23,7 +23,7 @@ var routes = require('./routes/');
 var configDB = require('./config/database.js');
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
+mongoose.connect(configDB.url || process.env.MONGOLAB_URI); // connect to our database
 
 
 
