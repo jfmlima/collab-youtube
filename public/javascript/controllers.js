@@ -57,6 +57,8 @@ angular.module('collabYoutube.controllers', [])
 
     .controller('roomController', function($scope, $collab, $routeParams, $session, $socket, isOwner, $location, $rootScope, $q) {
 
+        var room_id = $routeParams.id;
+
         var update_users = function () {
 
             $collab.updateRoomUsers(room_id, function (callback) {
@@ -65,11 +67,18 @@ angular.module('collabYoutube.controllers', [])
             });
         }
 
+        $collab.getRoomName(room_id, function(callback){
+            $scope.roomName = callback;
+        })
+
 
         $scope.formData = {};
         $scope.video_url = null;
         $scope.isOwner = isOwner;
+        console.log("ASDASDASDASD " + JSON.stringify($session.getUser()));
         var user = $session.getUser();
+        console.log(user);
+
         if (user.facebook) {
 
             $scope.profilePic = 'http://graph.facebook.com/' + user.facebook.id + '/picture?width=270&height=270';
@@ -80,7 +89,7 @@ angular.module('collabYoutube.controllers', [])
 
         }
         console.log(user);
-        var room_id = $routeParams.id;
+
 
         update_users();
 
@@ -100,8 +109,10 @@ angular.module('collabYoutube.controllers', [])
         $scope.player = false;
 
 
-        $scope.ok = function(){
+        $scope.ok = function(video_url){
 
+            console.log("ID:AD " + video_url)
+            $scope.video_url = video_url;
             $scope.theBestVideo = $scope.video_url;
 
             /*$scope.videoframe = $sce.trustAsHtml("<iframe class='embed-responsive-item ng-isolate-scope' video-id='theBestVideo' id='unique-youtube-embed-id-1' frameborder='0' allowfullscreen='1' title='YouTube video player' width='640' height='390' src=https://youtube.com/embed/" + $scope.video_url + "></iframe>");
@@ -122,6 +133,10 @@ angular.module('collabYoutube.controllers', [])
             $scope.playerSettings.player.playVideo();
 
         }
+
+        $rootScope.$on('$routeChangeStart', function () {
+            $collab.join();
+        });
 
         $scope.pause = function(){
             $collab.pauseVideo(room_id, $scope.video_url);

@@ -57,14 +57,14 @@ app.set('view engine', 'jade');
 app.use(cors());
 
 /*
-app.use(session({
-  secret: 'thatrealprotectedsecret',
-  saveUninitialized: true,
-  proxy: true,
-  resave: true,
+ app.use(session({
+ secret: 'thatrealprotectedsecret',
+ saveUninitialized: true,
+ proxy: true,
+ resave: true,
 
-})); // session
-*/
+ })); // session
+ */
 
 app.set('trust proxy', 1) // trust first proxy
 
@@ -76,8 +76,8 @@ app.use(cookieSession({
 // This allows you to set req.session.maxAge to let certain sessions
 // have a different value than the default.
 /*app.use(function (req, res, next) {
-  req.sessionOptions.maxAge = req.session.maxAge || req.sessionOptions.maxAge
-})*/
+ req.sessionOptions.maxAge = req.session.maxAge || req.sessionOptions.maxAge
+ })*/
 
 //app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(logger('dev'));
@@ -92,9 +92,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 /*if (app.get('env') === 'production') {
-  session.cookie.maxAge = 1000*60*60;
-  session.cookie.secure = true // serve secure cookies
-}*/
+ session.cookie.maxAge = 1000*60*60;
+ session.cookie.secure = true // serve secure cookies
+ }*/
 //app.get('*', routes.index);
 
 require('./routes/routes.js')(app, passport);
@@ -177,6 +177,7 @@ io.sockets.on('connection', function(clientSocket){
 
   clientSocket.on('createRoom', function (name) {
 
+    console.log("is in room: ", JSON.stringify(people[clientSocket.id]));
     if(people[clientSocket.id].room == null){
       var id = uuid.v4();
       var room = new Room(name, id, clientSocket.id);
@@ -186,6 +187,7 @@ io.sockets.on('connection', function(clientSocket){
       clientSocket.room = name;
       people[clientSocket.id].room = name;
       people[clientSocket.id].ready = true;
+      console.log("is in room 2: ", JSON.stringify(people[clientSocket.id]));
       clientSocket.join(clientSocket.room);
       room.addPerson(clientSocket.id);
       clientSocket.emit("roomCreation", id);
@@ -194,6 +196,7 @@ io.sockets.on('connection', function(clientSocket){
     else{
       io.sockets.emit("update", "Sorry, you can only create one room");
     }
+    console.log("ON ROOM CREATION: " + JSON.stringify(people));
 
   });
 
@@ -230,6 +233,13 @@ io.sockets.on('connection', function(clientSocket){
     }
   });
 
+  clientSocket.on("getRoomName", function(id, callback){
+    var room = rooms[id];
+
+    callback("name", room.name);
+
+  });
+
   clientSocket.on("leaveRoom", function(id) {
     var room = rooms[id];
     if (clientSocket.id === room.owner) {
@@ -237,19 +247,27 @@ io.sockets.on('connection', function(clientSocket){
       while(i < clients.length) {
         if(clients[i].id == room.people[i]) {
           people[clients[i].id].inroom = null;
+          people[clients[i].id].room = null;
+          people[clients[i].id].ready = false;
           clients[i].leave(room.name);
         }
         ++i;
       }
       delete rooms[id];
+      people[clientSocket.id].room = null;
+      people[clientSocket.id].ready = false;
       people[room.owner].owns = null; //reset the owns object to null so new room can be added
       io.sockets.emit("roomList", {rooms: rooms});
-      io.sockets.in(clientSocket.room).emit("update", "The owner (" +user.name + ") is leaving the room. The room is removed.");
+      //io.sockets.in(clientSocket.room).emit("update", "The owner (" +user.name + ") is leaving the room. The room is removed.");
+      io.sockets.in(clientSocket.room).emit("userLeaveRoom", people[clientSocket.id].name);
+      io.sockets.emit("update", "The owner (" +people[clientSocket.id].name+ ") is leaving the room. The room is removed.");
     } else {
       room.people.contains(clientSocket.id, function(found) {
         if (found) { //make sure that the client is in fact part of this room
           var personIndex = room.people.indexOf(clientSocket.id);
           room.people.splice(personIndex, 1);
+          people[clientSocket.id].room = null;
+          people[clientSocket.id].ready = false;
           io.sockets.in(clientSocket.room).emit("userLeaveRoom", people[clientSocket.id].name);
           io.sockets.emit("update", people[clientSocket.id].name + " has left the room.");
           clientSocket.leave(room.name);
@@ -259,39 +277,39 @@ io.sockets.on('connection', function(clientSocket){
   });
 
   /*clientSocket.on("disconnect", function() {
-    if (people[clientSocket.id]) {
-      if (people[clientSocket.id].inroom === null) {
-        io.sockets.emit("update", people[clientSocket.id].name + " has left the server.");
-        delete people[clientSocket.id];
-        io.sockets.emit("update-people", people);
-      } else {
-        if (people[clientSocket.id].owns !== null) {
-          var room= rooms[people[clientSocket.id].owns];
-          if (room && clientSocket.id === room.owner) {
-            var i = 0;
-            while(i < clients.length) {
-              if (clients[i].id === room.people[i]) {
-                people[clients[i].id].inroom = null;
-                clients[i].leave(room.name);
-              }
-              ++i;
-            }
-            delete rooms[people[clientSocket.id].owns];
-          }
+   if (people[clientSocket.id]) {
+   if (people[clientSocket.id].inroom === null) {
+   io.sockets.emit("update", people[clientSocket.id].name + " has left the server.");
+   delete people[clientSocket.id];
+   io.sockets.emit("update-people", people);
+   } else {
+   if (people[clientSocket.id].owns !== null) {
+   var room= rooms[people[clientSocket.id].owns];
+   if (room && clientSocket.id === room.owner) {
+   var i = 0;
+   while(i < clients.length) {
+   if (clients[i].id === room.people[i]) {
+   people[clients[i].id].inroom = null;
+   clients[i].leave(room.name);
+   }
+   ++i;
+   }
+   delete rooms[people[clientSocket.id].owns];
+   }
 
-        }
-        io.sockets.in(clientSocket.room).emit("userLeaveRoom", people[clientSocket.id].name);
-        io.sockets.emit("update", people[clientSocket.id].name + " has left the server.");
-        delete people[clientSocket.id];
-        io.sockets.emit("update-people", people);
-        io.sockets.emit("roomList", {rooms: rooms});
-      }
-    }
-  });*/
+   }
+   io.sockets.in(clientSocket.room).emit("userLeaveRoom", people[clientSocket.id].name);
+   io.sockets.emit("update", people[clientSocket.id].name + " has left the server.");
+   delete people[clientSocket.id];
+   io.sockets.emit("update-people", people);
+   io.sockets.emit("roomList", {rooms: rooms});
+   }
+   }
+   });*/
 
   clientSocket.on('readyState', function (id, callback) {
 
-    console.log("on: " + JSON.stringify(rooms[id.room]) + " with: " + id.room);
+    console.log(JSON.stringify(id) + " on: " + JSON.stringify(rooms[id.room]) + " with: " + id.room);
     var name = rooms[id.room].name;
     io.sockets.in(name).emit("ready", id.url);
 
@@ -306,6 +324,7 @@ io.sockets.on('connection', function(clientSocket){
     room.people.forEach(function(user){
       names.push({name: people[user].name, ready: people[user].ready});
       console.log(people[user].name );
+      console.log(people[user].ready );
 
     })
 
@@ -320,8 +339,10 @@ io.sockets.on('connection', function(clientSocket){
 
     console.log("room: " + id);
 
-    if(room !== undefined){
+    if(room !== undefined ){
+
       callback("error", true);
+
     }
     else
       callback("error", false);
@@ -332,14 +353,13 @@ io.sockets.on('connection', function(clientSocket){
 
   clientSocket.on('isRoomOwner', function (id, callback) {
 
-    var room = rooms[id];
+    var room = rooms[id.room];
     var names = [];
 
-    console.log("room: " + id);
 
-    console.log("user: " + clientSocket.id);
+    console.log("user: " + JSON.stringify(people[clientSocket.id]));
 
-    if(room.owner == clientSocket.id){
+    if(room && room.owner == clientSocket.id){
       callback("error", true);
     }
     else
@@ -407,8 +427,11 @@ io.sockets.on('connection', function(clientSocket){
 
   clientSocket.on('disconnect', function(){
     counter--;
-    console.log("disconnected");
-    console.log("connections: ", counter);
+    setTimeout(function () {
+
+      console.log("disconnected");
+      console.log("connections: ", counter);
+    }, 10000);
   });
 });
 

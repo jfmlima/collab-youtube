@@ -1,12 +1,20 @@
 // public/core.js
-angular.module('collabYoutube', ['collabYoutube.controllers', 'collabYoutube.services', 'youtube-embed', 'ui.bootstrap', 'ngRoute', 'btford.socket-io'])
+angular.module('collabYoutube', ['collabYoutube.controllers', 'collabYoutube.services', 'youtube-embed', 'ui.bootstrap', 'ngCookies','ngRoute', 'btford.socket-io'])
 
 
     .filter('unsafe', function($sce) {
         return $sce.trustAsHtml;
     })
 
+    .run(function($location, $session){
+        window.onbeforeunload = function () {
+            console.log("aqui");
+            $location.path("/");
+        };
+    })
+
     .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+
         $routeProvider.
             when('/', {
                 templateUrl: '/partials/index',
@@ -23,14 +31,15 @@ angular.module('collabYoutube', ['collabYoutube.controllers', 'collabYoutube.ser
                 templateUrl: '/partials/room',
                 controller: 'roomController',
                 resolve: {
+                    loggedIn: checkLoggedin,
+                    roomExists: roomExists,
                     isOwner: function($q, $collab, $route){
                         var defer = $q.defer()
                         $collab.isRoomOwner($route.current.params.id, function(callback){
                             defer.resolve(callback);
                         })
                         return defer.promise;
-                    },
-                    loggedIn: checkLoggedin
+                    }
                 }
             }).
             otherwise({
@@ -60,6 +69,25 @@ angular.module('collabYoutube', ['collabYoutube.controllers', 'collabYoutube.ser
         })
     }])
 
+
+
+
+var roomExists = function($q, $collab, $location, $route){
+    var defer = $q.defer()
+    $collab.roomExists($route.current.params.id, function(callback){
+        console.log(callback);
+
+        if (callback){
+            defer.resolve();
+        }
+        // Not Authenticated
+        else {
+            defer.reject();
+            $location.url('/');
+        }
+    })
+    return defer.promise;
+}
 
 var checkLoggedin = function($q, $timeout, $http, $location, $rootScope, $session){
 // Initialize a new promise

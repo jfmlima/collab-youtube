@@ -8,18 +8,23 @@ angular.module('collabYoutube.services', [])
         return socketFactory();
     })
 
-    .service('$session', function(){
+    .service('$session', function($cookies){
         var user_;
         var owner = false;
 
         this.setUser = function(user){
+            $cookies.putObject("user", user);
             user_ = user;
         }
 
         this.getUser = function(){
-            if(user_ != null){
+            var user = $cookies.getObject("user");
+            console.log(user);
+            /*if(user_ != null){
                 return user_;
             }
+            else */if(user != null)
+                return user;
             else
             return null;
         }
@@ -90,7 +95,27 @@ angular.module('collabYoutube.services', [])
         }
 
         this.isRoomOwner = function(room_id, callback){
-            $socket.emit("isRoomOwner", room_id, function(error, message){
+            var user = $session.getUser();      ///TODO SET USER ON COOKIE
+
+            if(user.facebook)
+                var name = user.facebook.name;
+            else if(user.google)
+                var name = user.google.name;
+
+            $socket.emit("isRoomOwner", {room:room_id, name: name}, function(error, message){
+                callback(message);
+            })
+        }
+
+        this.getRoomName = function(room_id, callback){
+
+            $socket.emit("getRoomName", room_id, function(error, message){
+                callback(message);
+            })
+        }
+
+        this.roomExists = function(room_id, callback){
+            $socket.emit("roomExists", room_id, function(error, message){
                 callback(message);
             })
         }
