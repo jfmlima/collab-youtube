@@ -1,7 +1,6 @@
 // public/core.js
 angular.module('collabYoutube', ['collabYoutube.controllers', 'collabYoutube.services', 'youtube-embed', 'ui.bootstrap', 'ngCookies','ngRoute', 'btford.socket-io'])
 
-
     .filter('unsafe', function($sce) {
         return $sce.trustAsHtml;
     })
@@ -68,9 +67,6 @@ angular.module('collabYoutube', ['collabYoutube.controllers', 'collabYoutube.ser
             };
         })
     }])
-
-
-
 
 var roomExists = function($q, $collab, $location, $route){
     var defer = $q.defer()

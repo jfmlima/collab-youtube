@@ -27,10 +27,6 @@ module.exports = function(passport) {
         });
     });
 
-
-    // code for login (use('local-login', new LocalStategy))
-    // code for signup (use('local-signup', new LocalStategy))
-
     // =========================================================================
     // FACEBOOK ================================================================
     // =========================================================================

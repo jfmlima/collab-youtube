@@ -20,10 +20,7 @@ angular.module('collabYoutube.services', [])
         this.getUser = function(){
             var user = $cookies.getObject("user");
             console.log(user);
-            /*if(user_ != null){
-                return user_;
-            }
-            else */if(user != null)
+            if(user != null)
                 return user;
             else
             return null;
@@ -51,7 +48,6 @@ angular.module('collabYoutube.services', [])
         }
     })
 
-
     .service('$collab', function($rootScope, $socket, $session, $room){
 
         this.join = function(){
@@ -62,7 +58,6 @@ angular.module('collabYoutube.services', [])
                 var name = user.google.name;
 
             $socket.emit('join', name);
-
         }
 
         this.update = function(){
@@ -72,11 +67,8 @@ angular.module('collabYoutube.services', [])
 
         }
 
-
         this.createRoom = function(name){
-
             $socket.emit('createRoom', name);
-
         }
 
         this.leaveRoom = function(name){
@@ -88,14 +80,12 @@ angular.module('collabYoutube.services', [])
         this.updateRoomUsers = function(room_id, callback){
             $socket.emit("retrieveUserNames", room_id, function(error, message){
                 $room.updateViewers(message);
-                /*$rootScope.viewers = $room.getViewers();
-                console.log($rootScope.viewers)*/
                 callback($room.getViewers());
             })
         }
 
         this.isRoomOwner = function(room_id, callback){
-            var user = $session.getUser();      ///TODO SET USER ON COOKIE
+            var user = $session.getUser();      
 
             if(user.facebook)
                 var name = user.facebook.name;
@@ -134,15 +124,11 @@ angular.module('collabYoutube.services', [])
         this.clientReady = function(room_id){
             $socket.emit("clientReady", room_id);
         }
-
     })
 
     .service("$youtube", function(){
-
         var player;
-
         this.initPlayer = function(){
-
             player = new YT.Player('player', {
                 height: '390',
                 width: '640',
@@ -153,5 +139,4 @@ angular.module('collabYoutube.services', [])
                 }
             });
         }
-
     })

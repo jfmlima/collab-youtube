@@ -52,8 +52,6 @@ module.exports = function(app, passport) {
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
 // =============================================================================
 
-
-
     // facebook -------------------------------
 
     // send to facebook to do the authentication
@@ -65,7 +63,6 @@ module.exports = function(app, passport) {
             successRedirect : '/',
             failureRedirect : '/login'
         }));
-
 
 
     // google ---------------------------------
@@ -98,7 +95,6 @@ module.exports = function(app, passport) {
     });
 
 
-
     // google ---------------------------------
     app.get('/unlink/google', function(req, res) {
         var user          = req.user;
@@ -107,7 +103,6 @@ module.exports = function(app, passport) {
             res.redirect('/');
         });
     });
-
 
     // route for logging out
     app.get('/auth/logout', function(req, res) {
@@ -132,6 +127,5 @@ function ensureAuthentication(req, res, next) {
     else{
         res.sendStatus(401);
     }
-
 
 }

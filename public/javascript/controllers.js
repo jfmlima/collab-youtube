@@ -15,7 +15,6 @@ angular.module('collabYoutube.controllers', [])
             $session.setUser(null);
         }
 
-
         $scope.animationsEnabled = true;
 
         $scope.joinRoom = function(size){
@@ -51,8 +50,6 @@ angular.module('collabYoutube.controllers', [])
                 $log.info('Modal dismissed at: ' + new Date());
             });
         };
-
-
     })
 
     .controller('roomController', function($scope, $collab, $routeParams, $session, $socket, isOwner, $location, $rootScope, $q) {
@@ -71,13 +68,10 @@ angular.module('collabYoutube.controllers', [])
             $scope.roomName = callback;
         })
 
-
         $scope.formData = {};
         $scope.video_url = null;
         $scope.isOwner = isOwner;
-        console.log("ASDASDASDASD " + JSON.stringify($session.getUser()));
         var user = $session.getUser();
-        console.log(user);
 
         if (user.facebook) {
 
@@ -88,14 +82,8 @@ angular.module('collabYoutube.controllers', [])
         {
 
         }
-        console.log(user);
-
 
         update_users();
-
-
-
-        console.log($scope.viewers);
 
         $scope.playerSettings = {
             player: null,
@@ -108,28 +96,17 @@ angular.module('collabYoutube.controllers', [])
         $scope.myStyle = "http://img.youtube.com/vi/" + $scope.video_url + "/0.jpg"
         $scope.player = false;
 
-
         $scope.ok = function(video_url){
-
             console.log("ID:AD " + video_url)
             $scope.video_url = video_url;
             $scope.theBestVideo = $scope.video_url;
-
-            /*$scope.videoframe = $sce.trustAsHtml("<iframe class='embed-responsive-item ng-isolate-scope' video-id='theBestVideo' id='unique-youtube-embed-id-1' frameborder='0' allowfullscreen='1' title='YouTube video player' width='640' height='390' src=https://youtube.com/embed/" + $scope.video_url + "></iframe>");
-             $scope.deliberatelyTrustDangerousSnippet = function() {
-             return $sce.trustAsHtml($scope.videoframe);
-             };*/
-
             $scope.player = true;
-
             $collab.setVideoReady(room_id, $scope.video_url);
-
         }
 
         $scope.play = function(){
             $collab.playVideo(room_id, $scope.video_url);
             console.log($scope.playerSettings.player);
-
             $scope.playerSettings.player.playVideo();
 
         }
@@ -152,11 +129,6 @@ angular.module('collabYoutube.controllers', [])
             console.log(data);
             $scope.theBestVideo = data;
             $scope.myStyle = "http://img.youtube.com/vi/" + data + "/0.jpg"
-
-            /* $scope.videoframe = $sce.trustAsHtml("<iframe class='embed-responsive-item ng-isolate-scope' video-id='theBestVideo' id='unique-youtube-embed-id-1' frameborder='0' allowfullscreen='1' title='YouTube video player' width='640' height='390' src=https://youtube.com/embed/" + data + "></iframe>");
-             $scope.deliberatelyTrustDangerousSnippet = function() {
-             return $sce.trustAsHtml($scope.videoframe);
-             };*/
             $scope.preview = true;
         })
 
@@ -165,33 +137,22 @@ angular.module('collabYoutube.controllers', [])
         })
 
         $socket.on("clientIsReady", function(data){
-
             update_users();
-
         })
 
         $socket.on("userLeaveRoom", function(data){
-
             update_users();
-
         })
 
         $scope.exit = function(){
             $collab.leaveRoom(room_id);
             $location.path( "/" );
-
-
         }
 
         $socket.on("play", function(url){
             $scope.theBestVideo = url;
             $scope.preview = false;
             $scope.player = true;
-            console.log("AQUI");
-            //$scope.$on('youtube.player.ready', function ($event, player) {
-            //    console.log("player ready");
-            //    player.playVideo();
-            //});
             if($scope.playerSettings.player)
                 $scope.playerSettings.player.playVideo()
             else {
@@ -203,17 +164,11 @@ angular.module('collabYoutube.controllers', [])
         })
 
         $socket.on("pause", function(url){
-
             $scope.playerSettings.player.pauseVideo();
         })
-
-
-
-
     })
 
     .controller('joinRoomController', function ($scope, $socket, $location, $uibModalInstance) {
-
 
         $scope.ok = function () {
             var room_id = $scope.room_id;
@@ -240,7 +195,6 @@ angular.module('collabYoutube.controllers', [])
     })
 
     .controller('createRoomController', function ($scope, $socket, $session, $uibModalInstance, $collab, $location, $room) {
-
         $scope.ok = function () {
 
             console.log($scope.room_name);
@@ -260,7 +214,6 @@ angular.module('collabYoutube.controllers', [])
             })
             $uibModalInstance.dismiss('cancel');
 
-
         };
 
         $scope.cancel = function () {
@@ -270,7 +223,6 @@ angular.module('collabYoutube.controllers', [])
 
     .controller('loginController', function($scope, $window, $http, $socket) {
         $scope.formData = {};
-
 
     })
 

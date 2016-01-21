@@ -1,9 +1,7 @@
 var uuid = require('node-uuid');
 var Room = require('../models/room');
 
-
 module.exports = {
-
     join: function (io, clientSocket, name, people, rooms, clients) {
         var roomID = null;
 
