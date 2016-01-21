@@ -1,3 +1,6 @@
+/* global process*/
+/* global __dirname*/
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -6,80 +9,43 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var cookieSession = require('cookie-session')
-
 var mongoose = require('mongoose');
-
 var http = require('http');
 var debug = require('debug')('collabYoutube:server');
-
 var passport = require('passport');
-var flash    = require('connect-flash');
+var flash = require('connect-flash');
 var cors = require('cors');
-var uuid = require('node-uuid');
-
-
-//var users = require('/routes/users');
-
+var comm = require('./config/comm.js');
 var configDB = require('./config/database.js');
 
 // configuration ===============================================================
 
-
 mongoose.connect(configDB.url || process.env.MONGOLAB_URI); // connect to our database
 
-
-
-
 var app = express();
-
-var Room = require('./models/room.js');
-
 
 /**
  * Create HTTP server.
  */
 
 var server = http.createServer(app);
-
 var io = require('socket.io')(server);
-
 var port = normalizePort(process.env.PORT || '3000');
-
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-
 app.use(cors());
-
-/*
- app.use(session({
- secret: 'thatrealprotectedsecret',
- saveUninitialized: true,
- proxy: true,
- resave: true,
-
- })); // session
- */
 
 app.set('trust proxy', 1) // trust first proxy
 
 app.use(cookieSession({
-  name: 'session',
-  keys: ['key1', 'key2']
+    name: 'session',
+    keys: ['key1', 'key2']
 }));
 
-// This allows you to set req.session.maxAge to let certain sessions
-// have a different value than the default.
-/*app.use(function (req, res, next) {
- req.sessionOptions.maxAge = req.session.maxAge || req.sessionOptions.maxAge
- })*/
 
-//app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(logger('dev'));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -89,24 +55,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
-/*if (app.get('env') === 'production') {
- session.cookie.maxAge = 1000*60*60;
- session.cookie.secure = true // serve secure cookies
- }*/
-//app.get('*', routes.index);
-
 require('./routes/routes.js')(app, passport);
 
 require('./config/passport')(passport);
 
-
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.use(function (req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handlers
@@ -114,27 +71,26 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
+    app.use(function (err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
     });
-  });
 }
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+app.use(function (err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
 });
 
 app.set('port', port);
-
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -149,290 +105,68 @@ var people = {};
 var rooms = {};
 var clients = [];
 
-io.sockets.on('connection', function(clientSocket){
-  console.log("connected");
-
-
-  clientSocket.on('join', function (name) {
-    roomID = null;
-
-    console.log(name);
-    people[clientSocket.id] = {
-      "name": name,
-      "room": roomID,
-      ready: false
-    };
-
-    clientSocket.emit("update", "You have sucessfully connected to the server")
-
-    io.sockets.emit("update", people[clientSocket.id].name + " is online.");
-    io.sockets.emit("update-people", people);
-
-    clientSocket.emit("roomList", {rooms: rooms});
-
-    clients.push(clientSocket);
-
-
-  });
-
-  clientSocket.on('createRoom', function (name) {
-
-    console.log("is in room: ", JSON.stringify(people[clientSocket.id]));
-    if(people[clientSocket.id].room == null){
-      var id = uuid.v4();
-      var room = new Room(name, id, clientSocket.id);
-      rooms[id] = room;
-      io.sockets.emit("roomList", {rooms: rooms});
-
-      clientSocket.room = name;
-      people[clientSocket.id].room = name;
-      people[clientSocket.id].ready = true;
-      console.log("is in room 2: ", JSON.stringify(people[clientSocket.id]));
-      clientSocket.join(clientSocket.room);
-      room.addPerson(clientSocket.id);
-      clientSocket.emit("roomCreation", id);
-      clientSocket.emit("updateRoom", {id: id, room: rooms[id]});
-    }
-    else{
-      io.sockets.emit("update", "Sorry, you can only create one room");
-    }
-    console.log("ON ROOM CREATION: " + JSON.stringify(people));
-
-  });
-
-  clientSocket.on('joinRoom', function (id) {
-
-    console.log("ID " + id);
-    var room = rooms[id];
-
-    if(clientSocket.id == room.owner){
-      clientSocket.emit("update", "You are the owner, and already joined this room");
-    }
-    else{
-      room.people.contains(clientSocket.id, function(found){
-        if(found){
-          clientSocket.emit("update", "You have already joined this room");
-        }
-        else{
-          if(people[clientSocket.id].inroom !== undefined){
-            clientSocket.emit("update", "You are already in one room (" + rooms[people[clientSocket.id].inroom].name+"), please leave it first to join another room.");
-          }
-          else {
-            room.addPerson(clientSocket.id);
-            people[clientSocket.id].inroom = id;
-            clientSocket.room = room.name;
-            clientSocket.join(clientSocket.room); //add person to the room
-            user = people[clientSocket.id];
-            io.sockets.in(clientSocket.room).emit("update", user.name + " has connected to " + room.name + " room.");
-            io.sockets.in(clientSocket.room).emit("clientJoin", user.name + " has connected to " + room.name + " room.");
-            clientSocket.emit("update", "Welcome to " + room.name + ".");
-            clientSocket.emit("sendRoomID", {id: id});
-          }
-        }
-      });
-    }
-  });
-
-  clientSocket.on("getRoomName", function(id, callback){
-    var room = rooms[id];
-
-    callback("name", room.name);
-
-  });
-
-  clientSocket.on("leaveRoom", function(id) {
-    var room = rooms[id];
-    if (clientSocket.id === room.owner) {
-      var i = 0;
-      while(i < clients.length) {
-        if(clients[i].id == room.people[i]) {
-          people[clients[i].id].inroom = null;
-          people[clients[i].id].room = null;
-          people[clients[i].id].ready = false;
-          clients[i].leave(room.name);
-        }
-        ++i;
-      }
-      delete rooms[id];
-      people[clientSocket.id].room = null;
-      people[clientSocket.id].ready = false;
-      people[room.owner].owns = null; //reset the owns object to null so new room can be added
-      io.sockets.emit("roomList", {rooms: rooms});
-      //io.sockets.in(clientSocket.room).emit("update", "The owner (" +user.name + ") is leaving the room. The room is removed.");
-      io.sockets.in(clientSocket.room).emit("userLeaveRoom", people[clientSocket.id].name);
-      io.sockets.emit("update", "The owner (" +people[clientSocket.id].name+ ") is leaving the room. The room is removed.");
-    } else {
-      room.people.contains(clientSocket.id, function(found) {
-        if (found) { //make sure that the client is in fact part of this room
-          var personIndex = room.people.indexOf(clientSocket.id);
-          room.people.splice(personIndex, 1);
-          people[clientSocket.id].room = null;
-          people[clientSocket.id].ready = false;
-          io.sockets.in(clientSocket.room).emit("userLeaveRoom", people[clientSocket.id].name);
-          io.sockets.emit("update", people[clientSocket.id].name + " has left the room.");
-          clientSocket.leave(room.name);
-        }
-      });
-    }
-  });
-
-  /*clientSocket.on("disconnect", function() {
-   if (people[clientSocket.id]) {
-   if (people[clientSocket.id].inroom === null) {
-   io.sockets.emit("update", people[clientSocket.id].name + " has left the server.");
-   delete people[clientSocket.id];
-   io.sockets.emit("update-people", people);
-   } else {
-   if (people[clientSocket.id].owns !== null) {
-   var room= rooms[people[clientSocket.id].owns];
-   if (room && clientSocket.id === room.owner) {
-   var i = 0;
-   while(i < clients.length) {
-   if (clients[i].id === room.people[i]) {
-   people[clients[i].id].inroom = null;
-   clients[i].leave(room.name);
-   }
-   ++i;
-   }
-   delete rooms[people[clientSocket.id].owns];
-   }
-
-   }
-   io.sockets.in(clientSocket.room).emit("userLeaveRoom", people[clientSocket.id].name);
-   io.sockets.emit("update", people[clientSocket.id].name + " has left the server.");
-   delete people[clientSocket.id];
-   io.sockets.emit("update-people", people);
-   io.sockets.emit("roomList", {rooms: rooms});
-   }
-   }
-   });*/
-
-  clientSocket.on('readyState', function (id, callback) {
-
-    console.log(JSON.stringify(id) + " on: " + JSON.stringify(rooms[id.room]) + " with: " + id.room);
-    var name = rooms[id.room].name;
-    io.sockets.in(name).emit("ready", id.url);
-
-  });
-
-  clientSocket.on('retrieveUserNames', function (id, callback) {
-
-    var room = rooms[id];
-    var names = [];
-
-    console.log(room);
-    room.people.forEach(function(user){
-      names.push({name: people[user].name, ready: people[user].ready});
-      console.log(people[user].name );
-      console.log(people[user].ready );
-
-    })
-
-    callback("error", names);
-
-  });
-
-  clientSocket.on('roomExists', function (id, callback) {
-
-    var room = rooms[id];
-    var names = [];
-
-    console.log("room: " + id);
-
-    if(room !== undefined ){
-
-      callback("error", true);
-
-    }
-    else
-      callback("error", false);
-
-
-
-  });
-
-  clientSocket.on('isRoomOwner', function (id, callback) {
-
-    var room = rooms[id.room];
-    var names = [];
-
-
-    console.log("user: " + JSON.stringify(people[clientSocket.id]));
-
-    if(room && room.owner == clientSocket.id){
-      callback("error", true);
-    }
-    else
-      callback("error", false);
-
-
-
-  });
-
-  clientSocket.on('clientReady', function (id, callback) {
-
-    var room = rooms[id];
-    var names = [];
-    var name = rooms[id].name;
-
-
-    console.log("room: " + id);
-
-    console.log("user: " + clientSocket.id);
-
-    people[clientSocket.id].ready = true;
-
-    io.sockets.in(name).emit("clientIsReady", people[clientSocket.id].name);
-
-
-
-  });
-
-  clientSocket.on('playVideo', function (data, callback) {
-
-    console.log(JSON.stringify(data));
-    var room = rooms[data.room];
-    var video_url = data.url;
-    var name = rooms[data.room].name
-
-    console.log("room: " + data.room);
-
-    console.log("user: " + clientSocket.id);
-    console.log("video: " + video_url);
-
-    io.sockets.in(name).emit("play", video_url);
-
-
-
-  });
-
-  clientSocket.on('pauseVideo', function (data, callback) {
-
-    console.log(JSON.stringify(data));
-    var room = rooms[data.room];
-    var video_url = data.url;
-    var name = rooms[data.room].name
-
-
-    io.sockets.in(name).emit("pause", video_url);
-
-
-
-  });
-
-
-  counter++;
-
-  console.log("connections: ", counter);
-
-  clientSocket.on('disconnect', function(){
-    counter--;
-    setTimeout(function () {
-
-      console.log("disconnected");
-      console.log("connections: ", counter);
-    }, 10000);
-  });
+io.sockets.on('connection', function (clientSocket) {
+        
+    clientSocket.on('join', function (name) {
+        comm.join(io, clientSocket, name, people, rooms, clients);
+    });
+
+    clientSocket.on('createRoom', function (name) {
+        comm.createRoom(io, clientSocket, name, people, rooms, clients);
+    });
+
+    clientSocket.on('joinRoom', function (id) {
+        comm.joinRoom(io, clientSocket, id, people, rooms);
+    });
+    
+    clientSocket.on("getRoomName", function (id, callback) {
+        comm.getRoomName(rooms, id, callback);
+    });
+
+    clientSocket.on("leaveRoom", function (id) {
+        comm.leaveRoom(io, clientSocket, id, people, rooms, clients);
+    });
+
+    clientSocket.on('readyState', function (id, callback) {
+        comm.readyState(id, callback, rooms, io);
+    });
+
+    clientSocket.on('retrieveUserNames', function (id, callback) {
+        comm.retrieveUserNames(id, callback, rooms, people);
+    });
+
+    clientSocket.on('roomExists', function (id, callback) {
+        comm.roomExists(id, callback, rooms);        
+    });
+
+    clientSocket.on('isRoomOwner', function (id, callback) {
+        comm.isRoomOwner(id, callback, rooms, people, clientSocket);       
+    });
+
+    clientSocket.on('clientReady', function (id, callback) {
+        comm.clientReady(id, callback, rooms, clientSocket, people, io);
+    });
+
+    clientSocket.on('playVideo', function (data, callback) {
+        comm.playVideo(data, callback, rooms, clientSocket, io);
+    });
+
+    clientSocket.on('pauseVideo', function (data, callback) {
+        comm.pauseVideo(data, callback, rooms, io);
+    });
+
+    counter++;
+
+    console.log("connections: ", counter);
+
+    clientSocket.on('disconnect', function () {
+        counter--;
+        setTimeout(function () {
+
+            console.log("disconnected");
+            console.log("connections: ", counter);
+        }, 10000);
+    });
 });
 
 module.exports = app;
@@ -442,19 +176,19 @@ module.exports = app;
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+    var port = parseInt(val, 10);
 
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
 
-  if (port >= 0) {
-    // port number
-    return port;
-  }
+    if (port >= 0) {
+        // port number
+        return port;
+    }
 
-  return false;
+    return false;
 }
 
 /**
@@ -462,27 +196,27 @@ function normalizePort(val) {
  */
 
 function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
 
-  var bind = typeof port === 'string'
-      ? 'Pipe ' + port
-      : 'Port ' + port;
+    var bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
 
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
 }
 
 /**
@@ -490,22 +224,22 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-      ? 'pipe ' + addr
-      : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+    debug('Listening on ' + bind);
 }
 
-Array.prototype.contains = function(k, callback) {
-  var self = this;
-  return (function check(i) {
-    if (i >= self.length) {
-      return callback(false);
-    }
-    if (self[i] === k) {
-      return callback(true);
-    }
-    return process.nextTick(check.bind(null, i+1));
-  }(0));
+Array.prototype.contains = function (k, callback) {
+    var self = this;
+    return (function check(i) {
+        if (i >= self.length) {
+            return callback(false);
+        }
+        if (self[i] === k) {
+            return callback(true);
+        }
+        return process.nextTick(check.bind(null, i + 1));
+    } (0));
 };
